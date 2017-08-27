@@ -36,9 +36,12 @@ namespace TestCase.Repository.Membership
         {
             if (account == null) throw new ArgumentNullException(nameof(account));
 
-            var user = new UserEntity();
-            user.Id = Guid.NewGuid(); //TODO: Replace with sequential GUID
-            user.UserName = account.UserName;
+            var user = new UserEntity
+            {
+                Id = Guid.NewGuid(), //TODO: Replace with sequential GUID
+                UserName = account.UserName,
+                Email = account.Email
+            };
 
             //TODO: Add claims to database
 

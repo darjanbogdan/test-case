@@ -40,7 +40,7 @@ namespace TestCase.Service.Membership.Registration
                 UserId = Guid.NewGuid(),
                 Password = registerUserCommand.Password,
                 UserName = registerUserCommand.UserName,
-
+                Email = registerUserCommand.Email,
                 //TODO: Replace with activation logic
                 EmailConfirmed = true
             };

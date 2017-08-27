@@ -22,6 +22,9 @@ namespace TestCase.DataAccess.Context
         static TestCaseDbContext()
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<TestCaseDbContext, Configuration>("DefaultConnection"));
+
+            //Note: Ensures that EntityFramework.SqlServer.dll (implicit dependency ) is copied into host's /bin folder
+            var staticDependency = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
         }
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace TestCase.DataAccess.Context
         public TestCaseDbContext(string connectionString)
             : base(connectionString)
         {
+            
         }
     }
 }
