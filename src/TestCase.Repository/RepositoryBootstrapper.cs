@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Entities.Identity;
 using TestCase.Repository.Identity.Managers;
+using TestCase.Repository.Identity.Claims;
+using TestCase.Repository.Identity.Claims.Contracts;
 using TestCase.Repository.Identity.Security;
 using TestCase.Repository.Identity.Security.Contracts;
 using TestCase.Repository.Membership;
@@ -29,6 +31,8 @@ namespace TestCase.Repository
             container.Register<IIdentityValidator<string>, DefaultPasswordValidator>(Lifestyle.Scoped);
             container.Register<IIdentityUserValidatorFactory, DefaultUserValidatorFactory>(Lifestyle.Scoped);
             container.Register<UserManager<UserEntity, Guid>, TestCaseUserManager>(Lifestyle.Scoped);
+
+            container.Register<IClaimsIdentityProvider, ClaimsIdentityProvider>();
 
             container.Register<IAccountRepository, AccountRepository>();
         }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TestCase.Core.Command;
+using TestCase.Core.Context;
 using TestCase.Service.Membership.Registration;
 
 namespace TestCase.Controllers
@@ -13,18 +14,22 @@ namespace TestCase.Controllers
     [RoutePrefix("test")]
     public class TestController : ApiController
     {
-        ICommandHandler<RegisterUserCommand> registerUserHandler;
+        private readonly IExecutionContext executionContext;
 
-        public TestController(ICommandHandler<RegisterUserCommand> registerUserHandler)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestController"/> class.
+        /// </summary>
+        /// <param name="executionContext">The execution context.</param>
+        public TestController(IExecutionContext executionContext)
         {
-            this.registerUserHandler = registerUserHandler;
+            this.executionContext = executionContext;
         }
 
         [Route("")]
         [HttpGet]
         public Task<HttpResponseMessage> TestAsync()
         {
-            return Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, "it works."));
+            return Task.FromResult(Request.CreateResponse(HttpStatusCode.OK, this.executionContext.UserInfo));
         }
     }
 }

@@ -126,9 +126,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositionRoot.cs" />
+    <Compile Include="Infrastructure\Context\RequestContext.cs" />
+    <Compile Include="Infrastructure\OAuth\Middlewares\DefaultOAuthAuthorizationServerMiddleware.cs" />
+    <Compile Include="Infrastructure\OAuth\Middlewares\DefaultOAuthBearerAuthentication.cs" />
+    <Compile Include="Infrastructure\Owin\Middlewares\OwinContextExecutionScopeMiddleware.cs" />
+    <Compile Include="Infrastructure\Owin\Middlewares\OwinContextProviderMiddleware.cs" />
+    <Compile Include="Infrastructure\Owin\Providers\Contracts\IOwinContextProvider.cs" />
+    <Compile Include="Infrastructure\Owin\Providers\OwinContextProvider.cs" />
+    <Compile Include="WebApiBootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Infrastructure\Security\DefaultJwtFormat.cs" />
+    <Compile Include="Infrastructure\DependencyInjection\DependencyInjectionContainerFactory.cs" />
+    <Compile Include="Infrastructure\OAuth\DefaultJwtFormat.cs" />
+    <Compile Include="Infrastructure\OAuth\DefaultOAuthAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TestController.cs" />

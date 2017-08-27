@@ -12,6 +12,9 @@ using System.Web.Http;
 using TestCase.DataAccess;
 using TestCase.Repository;
 using TestCase.Service;
+using TestCase.WebApi.Infrastructure.DependencyInjection;
+using TestCase.WebApi.Infrastructure.OAuth.Middlewares;
+using TestCase.WebApi.Infrastructure.Owin.Middlewares;
 
 [assembly: OwinStartup(typeof(TestCase.WebApi.Startup))]
 
@@ -28,26 +31,46 @@ namespace TestCase.WebApi
         /// <param name="app">The application.</param>
         public void Configuration(IAppBuilder app)
         {
-            var container = new Container();
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            HttpConfiguration config = new HttpConfiguration();
+
+            WebApiConfig.Register(config);
+
+            #region Container
+
+            var container = DependencyInjectionContainerFactory.Create();
 
             DataAccessBootstrapper.Bootstrap(container);
             RepositoryBootstrapper.Bootstrap(container);
             ServiceBoostrapper.Bootstrap(container);
+            WebApiBootstrapper.Bootstrap(container);
 
-            HttpConfiguration httpConfig = new HttpConfiguration();
+            container.RegisterWebApiControllers(config);
 
-            WebApiConfig.Register(httpConfig);
-
-            container.RegisterWebApiControllers(httpConfig);
-
-            httpConfig.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
-
+#if DEBUG
             container.Verify();
+#endif
+
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+
+            #endregion Container
+
+            app.UseOwinContextExecutionScope(container);
+
+            #region OAuth
+
+            app.UseDefaultOAuthAuthorizationServer(container);
+            app.UseDefaultOAuthBearerAuthentication(container);
+
+            #endregion OAuth
+
+            #region Web Api
+
+            app.UseOwinContextProvider();
 
             app.UseCors(CorsOptions.AllowAll);
+            app.UseWebApi(config);
 
-            app.UseWebApi(httpConfig);
+            #endregion Web Api
         }
     }
 }

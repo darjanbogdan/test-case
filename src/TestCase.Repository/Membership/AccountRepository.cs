@@ -51,5 +51,25 @@ namespace TestCase.Repository.Membership
                 throw new ArgumentException(String.Join(",", result.Errors));
             }
         }
+
+        /// <summary>
+        /// Asynchronously gets the account.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">account</exception>
+        public async Task<Account> GetAsync(string userName, string password)
+        {
+            var user = await this.userManager.FindAsync(userName, password);
+            return new Account
+            {
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                Password = user.PasswordHash,
+                UserId = user.Id,
+                UserName = user.UserName
+            };
+        }
     }
 }

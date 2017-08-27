@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using TestCase.Core.Command;
+using TestCase.Core.Context;
 using TestCase.Service.Membership.Registration;
 
 namespace TestCase.WebApi.Controllers
@@ -18,8 +19,8 @@ namespace TestCase.WebApi.Controllers
     [RoutePrefix("accounts")]
     public class AccountController : ApiController
     {
-        ICommandHandler<RegisterUserCommand> registerUserHandler;
-
+        private readonly ICommandHandler<RegisterUserCommand> registerUserHandler;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>

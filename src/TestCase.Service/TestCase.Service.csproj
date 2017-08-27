@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Membership\Login\GetUserClaimsIdentityQuery.cs" />
+    <Compile Include="Membership\Login\GetUserClaimsIdentityQueryHandler.cs" />
+    <Compile Include="Membership\Login\GetUserClaimsIdentityResult.cs" />
     <Compile Include="Membership\Registration\RegisterUserCommand.cs" />
     <Compile Include="Membership\Registration\RegisterUserCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,5 +68,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

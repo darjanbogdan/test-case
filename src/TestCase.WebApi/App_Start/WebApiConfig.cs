@@ -7,16 +7,34 @@ using System.Web.Http;
 
 namespace TestCase
 {
+    /// <summary>
+    /// Web Api configuration
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers the specified configuration.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
         public static void Register(HttpConfiguration config)
         {
-            //Routes
+            RegisterWebApiRoutes(config);
+            RegisterWebApiFilters(config);
+            RegisterWebApiFormatters(config);
+        }
+
+        private static void RegisterWebApiRoutes(HttpConfiguration config)
+        {
             config.MapHttpAttributeRoutes();
+        }
 
-            //Filters
+        private static void RegisterWebApiFilters(HttpConfiguration config)
+        {
 
-            //Formatter
+        }
+
+        private static void RegisterWebApiFormatters(HttpConfiguration config)
+        {
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
