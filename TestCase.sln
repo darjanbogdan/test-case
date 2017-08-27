@@ -7,11 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.WebApi", "src\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.Core", "src\TestCase.Core\TestCase.Core.csproj", "{20B8DB6E-9A8F-4F92-8413-5C89F26BC305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.DAL", "src\TestCase.DAL\TestCase.DAL.csproj", "{FB4EECCA-D86A-4884-9654-68C2D901F3B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.DataAccess", "src\TestCase.DataAccess\TestCase.DataAccess.csproj", "{FB4EECCA-D86A-4884-9654-68C2D901F3B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.Repository", "src\TestCase.Repository\TestCase.Repository.csproj", "{5E0B8733-EEE5-4DBF-9341-DC4FC8CC6AC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.Service", "src\TestCase.Service\TestCase.Service.csproj", "{F5A2520D-F80D-4F7B-AC8C-1213544F7182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.Model", "src\TestCase.Model\TestCase.Model.csproj", "{18D814D3-61B3-478C-BC35-7F8DF0E4287A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F5A2520D-F80D-4F7B-AC8C-1213544F7182}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5A2520D-F80D-4F7B-AC8C-1213544F7182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5A2520D-F80D-4F7B-AC8C-1213544F7182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D814D3-61B3-478C-BC35-7F8DF0E4287A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D814D3-61B3-478C-BC35-7F8DF0E4287A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D814D3-61B3-478C-BC35-7F8DF0E4287A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D814D3-61B3-478C-BC35-7F8DF0E4287A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
