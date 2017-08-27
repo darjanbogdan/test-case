@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Validation;
-using TestCase.Service.Aspects.Validation;
+using TestCase.Service.Infrastructure.Validation;
 
 namespace TestCase.Service.Membership.Login
 {
