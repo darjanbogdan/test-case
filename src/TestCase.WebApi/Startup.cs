@@ -13,7 +13,7 @@ using TestCase.DataAccess;
 using TestCase.Repository;
 using TestCase.Service;
 using TestCase.WebApi.Infrastructure.DependencyInjection;
-using TestCase.WebApi.Infrastructure.OAuth.Middlewares;
+using TestCase.WebApi.Infrastructure.OAuth.OwinMiddlewares;
 using TestCase.WebApi.Infrastructure.Owin.Middlewares;
 
 [assembly: OwinStartup(typeof(TestCase.WebApi.Startup))]
@@ -32,8 +32,6 @@ namespace TestCase.WebApi
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
-
-            WebApiConfig.Register(config);
 
             #region Container
 
@@ -68,6 +66,8 @@ namespace TestCase.WebApi
             app.UseOwinContextProvider();
 
             app.UseCors(CorsOptions.AllowAll);
+
+            WebApiConfig.Register(config);
             app.UseWebApi(config);
 
             #endregion Web Api

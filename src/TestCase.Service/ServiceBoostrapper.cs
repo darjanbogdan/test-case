@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using AutoMapper;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,26 @@ namespace TestCase.Service
         {
             var applicationAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(asm => asm.GetName().Name.StartsWith("TestCase")).ToArray();
 
+            RegisterMapper(container, applicationAssemblies);
+
             RegisterCommandHandlerPipeline(container, applicationAssemblies);
             RegisterQueryHandlerPipeline(container, applicationAssemblies);
+        }
+
+        private static void RegisterMapper(Container container, Assembly[] assemblies)
+        {
+            var profileTypes = assemblies.SelectMany(asm => asm.GetTypes().Where(x => typeof(AutoMapper.Profile).IsAssignableFrom(x)));
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMissingTypeMaps = true;
+
+                foreach (var profileType in profileTypes)
+                {
+                    cfg.AddProfile(Activator.CreateInstance(profileType) as AutoMapper.Profile);
+                }
+            });
+            container.Register<IMapper>(() => config.CreateMapper(container.GetInstance));
         }
 
         private static void RegisterCommandHandlerPipeline(Container container, Assembly[] assemblies)

@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -127,8 +130,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Context\RequestContext.cs" />
-    <Compile Include="Infrastructure\OAuth\Middlewares\DefaultOAuthAuthorizationServerMiddleware.cs" />
-    <Compile Include="Infrastructure\OAuth\Middlewares\DefaultOAuthBearerAuthentication.cs" />
+    <Compile Include="Infrastructure\DependencyInjection\ContainerOptionsExtensions.cs" />
+    <Compile Include="Infrastructure\Mapper\WebApiProfile.cs" />
+    <Compile Include="Infrastructure\OAuth\OwinMiddlewares\DefaultOAuthAuthorizationServerMiddleware.cs" />
+    <Compile Include="Infrastructure\OAuth\OwinMiddlewares\DefaultOAuthBearerAuthentication.cs" />
     <Compile Include="Infrastructure\Owin\Middlewares\OwinContextExecutionScopeMiddleware.cs" />
     <Compile Include="Infrastructure\Owin\Middlewares\OwinContextProviderMiddleware.cs" />
     <Compile Include="Infrastructure\Owin\Providers\Contracts\IOwinContextProvider.cs" />

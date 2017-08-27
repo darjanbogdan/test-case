@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,16 @@ namespace TestCase.Service.Membership.Registration
     public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
     {
         private readonly IAccountRepository accountRepository;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegisterUserCommandHandler"/> class.
         /// </summary>
         /// <param name="accountRepository">The account repository.</param>
-        public RegisterUserCommandHandler(IAccountRepository accountRepository)
+        public RegisterUserCommandHandler(IAccountRepository accountRepository, IMapper mapper)
         {
             this.accountRepository = accountRepository;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -33,22 +36,13 @@ namespace TestCase.Service.Membership.Registration
         /// <returns></returns>
         public async Task HandleAsync(RegisterUserCommand registerUserCommand)
         {
-            //TODO: Add mapper
-
-            var account = new Account
-            {
-                UserId = Guid.NewGuid(),
-                Password = registerUserCommand.Password,
-                UserName = registerUserCommand.UserName,
-                Email = registerUserCommand.Email,
-                //TODO: Replace with activation logic
-                EmailConfirmed = true
-            };
-
+            var account = this.mapper.Map<RegisterUserCommand, Account>(registerUserCommand);
+            account.UserId = Guid.NewGuid(); //TODO: Replace with sequential guid
+            account.EmailConfirmed = true; //TODO: Replace with activation logic
+        
             await this.accountRepository.RegisterAsync(account);
 
             //TODO: Add roles, claims...
-
         }
     }
 }

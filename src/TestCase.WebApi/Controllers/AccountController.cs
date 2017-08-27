@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,14 +21,16 @@ namespace TestCase.WebApi.Controllers
     public class AccountController : ApiController
     {
         private readonly ICommandHandler<RegisterUserCommand> registerUserHandler;
-        
+        private readonly IMapper mapper;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
         /// <param name="registerUserHandler">The register user handler.</param>
-        public AccountController(ICommandHandler<RegisterUserCommand> registerUserHandler)
+        public AccountController(ICommandHandler<RegisterUserCommand> registerUserHandler, IMapper mapper)
         {
             this.registerUserHandler = registerUserHandler;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -39,15 +42,10 @@ namespace TestCase.WebApi.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> RegisterAsync(RegisterUser registerUser)
         {
-            var command = new RegisterUserCommand
-            {
-                ConfirmPassword = registerUser.ConfirmPassword,
-                Email = registerUser.Email,
-                Password = registerUser.Password,
-                UserName = registerUser.UserName
-            };
-
+            var command = this.mapper.Map<RegisterUserCommand>(registerUser);
+           
             await this.registerUserHandler.HandleAsync(command);
+
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
@@ -56,12 +54,24 @@ namespace TestCase.WebApi.Controllers
         /// </summary>
         public class RegisterUser
         {
+            /// <summary>
+            /// Gets or sets the name of the user.
+            /// </summary>
             public string UserName { get; set; }
 
+            /// <summary>
+            /// Gets or sets the password.
+            /// </summary>
             public string Password { get; set; }
 
+            /// <summary>
+            /// Gets or sets the confirm password.
+            /// </summary>
             public string ConfirmPassword { get; set; }
 
+            /// <summary>
+            /// Gets or sets the email.
+            /// </summary>
             public string Email { get; set; }
         }
     }

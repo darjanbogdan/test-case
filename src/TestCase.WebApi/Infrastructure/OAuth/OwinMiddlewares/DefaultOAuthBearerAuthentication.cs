@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TestCase.WebApi.Infrastructure.OAuth.Middlewares
+namespace TestCase.WebApi.Infrastructure.OAuth.OwinMiddlewares
 {
     /// <summary>
     /// Default OAuth bearer authentication middleware.

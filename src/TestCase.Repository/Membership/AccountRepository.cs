@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,17 @@ namespace TestCase.Repository.Membership
     public class AccountRepository : IAccountRepository
     {
         private readonly UserManager<UserEntity, Guid> userManager;
+        private readonly IMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountRepository"/> class.
+        /// Initializes a new instance of the <see cref="AccountRepository" /> class.
         /// </summary>
         /// <param name="userManager">The user manager.</param>
-        public AccountRepository(UserManager<UserEntity, Guid> userManager)
+        /// <param name="mapper">The mapper.</param>
+        public AccountRepository(UserManager<UserEntity, Guid> userManager, IMapper mapper)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -36,13 +40,8 @@ namespace TestCase.Repository.Membership
         {
             if (account == null) throw new ArgumentNullException(nameof(account));
 
-            var user = new UserEntity
-            {
-                Id = Guid.NewGuid(), //TODO: Replace with sequential GUID
-                UserName = account.UserName,
-                Email = account.Email
-            };
-
+            var user = this.mapper.Map<Account, UserEntity>(account);
+            
             //TODO: Add claims to database
 
             var result = await this.userManager.CreateAsync(user, account.Password);
