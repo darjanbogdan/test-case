@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCase.Core.Validation;
 
 namespace TestCase.Service.Membership.Registration
 {
     /// <summary>
     /// Register user command.
     /// </summary>
-    public class RegisterUserCommand
+    public class RegisterUserCommand : IValidateModel
     {
         /// <summary>
         /// Gets or sets the name of the user.
@@ -30,5 +31,10 @@ namespace TestCase.Service.Membership.Registration
         /// Gets or sets the email.
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets the name of the model.
+        /// </summary>
+        string IValidateModel.Name => nameof(RegisterUserCommand);
     }
 }

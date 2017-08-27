@@ -33,6 +33,9 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleInjector, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SimpleInjector.4.0.8\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
@@ -46,12 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aspects\Validation\BaseModelValidator.cs" />
+    <Compile Include="Aspects\Validation\ValidationCommandHandlerDecorator.cs" />
+    <Compile Include="Aspects\Validation\ValidationQueryHandlerDecorator.cs" />
     <Compile Include="Infrastructure\Mapper\ServiceProfile.cs" />
+    <Compile Include="Membership\Login\GetUserClaimsIdentityQueryValidator.cs" />
     <Compile Include="Membership\Login\GetUserClaimsIdentityQuery.cs" />
     <Compile Include="Membership\Login\GetUserClaimsIdentityQueryHandler.cs" />
     <Compile Include="Membership\Login\GetUserClaimsIdentityResult.cs" />
     <Compile Include="Membership\Registration\RegisterUserCommand.cs" />
     <Compile Include="Membership\Registration\RegisterUserCommandHandler.cs" />
+    <Compile Include="Membership\Registration\RegisterUserCommandValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBoostrapper.cs" />
   </ItemGroup>

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Command;
 using TestCase.Core.Query;
+using TestCase.Core.Validation;
+using TestCase.Service.Aspects.Validation;
 
 namespace TestCase.Service
 {
@@ -49,7 +51,11 @@ namespace TestCase.Service
         private static void RegisterCommandHandlerPipeline(Container container, Assembly[] assemblies)
         {
             container.Register(typeof(ICommandHandler<>), assemblies);
-            //container.RegisterDecorator(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
+
+            // Validation
+            container.Register(typeof(IModelValidator<>), assemblies);
+            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
+
             //container.RegisterDecorator(typeof(ICommandHandler<>), typeof(AuthorizationCommandHandlerDecorator<>));
             //container.RegisterDecorator(typeof(ICommandHandler<>), typeof(AuthenticationCommandHandlerDecorator<>));
         }
@@ -57,7 +63,7 @@ namespace TestCase.Service
         private static void RegisterQueryHandlerPipeline(Container container, Assembly[] assemblies)
         {
             container.Register(typeof(IQueryHandler<,>), assemblies);
-            //container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(ValidationQueryHandlerDecorator<,>));
+            container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(ValidationQueryHandlerDecorator<,>));
             //container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(AuthorizationQueryHandlerDecorator<,>));
             //container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(AuthenticationQueryHandlerDecorator<,>));
         }

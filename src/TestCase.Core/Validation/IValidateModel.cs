@@ -9,11 +9,11 @@ namespace TestCase.Core.Validation
     /// <summary>
     /// Validate model interface.
     /// </summary>
-    public interface IValidate
+    public interface IValidateModel
     {
         /// <summary>
         /// Gets the name of the model.
         /// </summary>
-        string ModelName { get; }
+        string Name { get; }
     }
 }

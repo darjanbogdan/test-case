@@ -10,7 +10,7 @@ namespace TestCase.Core.Validation
     /// Model validator contract.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IModelValidator<T> where T : IValidate
+    public interface IModelValidator<T> where T : IValidateModel
     {
         /// <summary>
         /// Asynchronously validates the model.
