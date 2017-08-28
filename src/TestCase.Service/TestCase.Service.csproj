@@ -49,8 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\Aspects\AuthenticationCommandHandlerDecorator.cs" />
+    <Compile Include="Auth\Aspects\AuthenticationQueryHandlerDecorator.cs" />
+    <Compile Include="Auth\Aspects\AuthorizationCommandHandlerDecorator.cs" />
+    <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
+    <Compile Include="Auth\Contracts\IObjectPermissionEvaluator.cs" />
+    <Compile Include="Auth\GroupPermissionEvaluator.cs" />
+    <Compile Include="Auth\Contracts\IGroupPermissionEvaluator.cs" />
+    <Compile Include="Auth\ObjectPermissionEvaluator.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\Contracts\ICacheProvider.cs" />
+    <Compile Include="Infrastructure\Lookups\Contracts\ILookup.cs" />
+    <Compile Include="Membership\Lookups\Contracts\IRoleLookup.cs" />
+    <Compile Include="Membership\Lookups\RoleLookup.cs" />
+    <Compile Include="Membership\Maps\RoleMap.cs" />
     <Compile Include="Validation\BaseModelValidator.cs" />
     <Compile Include="Validation\Aspects\ValidationCommandHandlerDecorator.cs" />
     <Compile Include="Validation\Aspects\ValidationQueryHandlerDecorator.cs" />

@@ -19,8 +19,9 @@ namespace TestCase.Service.Membership.Login
         private readonly IClaimsIdentityProvider claimsIdentityProvider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetUserClaimsIdentityQueryHandler"/> class.
+        /// Initializes a new instance of the <see cref="GetUserClaimsIdentityQueryHandler" /> class.
         /// </summary>
+        /// <param name="accountRepository">The account repository.</param>
         /// <param name="claimsIdentityProvider">The claims identity provider.</param>
         public GetUserClaimsIdentityQueryHandler(IAccountRepository accountRepository, IClaimsIdentityProvider claimsIdentityProvider)
         {

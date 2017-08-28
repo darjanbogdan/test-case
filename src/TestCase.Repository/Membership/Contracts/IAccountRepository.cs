@@ -26,5 +26,13 @@ namespace TestCase.Repository.Membership.Contracts
         /// <param name="password">The password.</param>
         /// <returns></returns>
         Task<Account> GetAsync(string userName, string password);
+
+        /// <summary>
+        /// Asynchronously inserts the user roles.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="roles">The roles.</param>
+        /// <returns></returns>
+        Task InsertUserRolesAsync(Guid userId, params Role[] roles);
     }
 }

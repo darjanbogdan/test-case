@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.Core.Auth
+namespace TestCase.Service.Auth.Contracts
 {
-    /// <summary>
-    /// Authenticate contract.
-    /// </summary>
-    public interface IAuthenticate
+    class IObjectPermissionEvaluator
     {
     }
 }

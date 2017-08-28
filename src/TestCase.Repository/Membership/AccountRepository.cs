@@ -36,6 +36,8 @@ namespace TestCase.Repository.Membership
         /// </summary>
         /// <param name="account">The account.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">account</exception>
+        /// <exception cref="ArgumentException"></exception>
         public async Task RegisterAsync(Account account)
         {
             if (account == null) throw new ArgumentNullException(nameof(account));
@@ -52,23 +54,35 @@ namespace TestCase.Repository.Membership
         }
 
         /// <summary>
+        /// Asynchronously inserts the user roles.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="roles">The roles.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">roles</exception>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task InsertUserRolesAsync(Guid userId, params Role[] roles)
+        {
+            if (roles == null) throw new ArgumentNullException(nameof(roles));
+
+            var result = await this.userManager.AddToRolesAsync(userId, roles.Select(r => r.Name).ToArray());
+            if (!result.Succeeded)
+            {
+                throw new ArgumentException(String.Join(",", result.Errors));
+            }
+        }
+        /// <summary>
         /// Asynchronously gets the account.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">account</exception>
         public async Task<Account> GetAsync(string userName, string password)
         {
             var user = await this.userManager.FindAsync(userName, password);
-            return new Account
-            {
-                Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed,
-                Password = user.PasswordHash,
-                UserId = user.Id,
-                UserName = user.UserName
-            };
+            var account = this.mapper.Map<UserEntity, Account>(user);
+            account.UserId = user.Id;
+            return account;
         }
     }
 }

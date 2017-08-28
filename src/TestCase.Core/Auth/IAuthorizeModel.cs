@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace TestCase.Core.Auth
 {
     /// <summary>
-    /// Authorize contract.
+    /// Authorize model contract.
     /// </summary>
-    public interface IAuthorize
+    public interface IAuthorizeModel
     {
         /// <summary>
         /// Gets the owner identifier.

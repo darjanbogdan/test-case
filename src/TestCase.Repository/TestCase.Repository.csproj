@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\Managers\TestCaseRoleManager.cs" />
     <Compile Include="Identity\Managers\TestCaseUserManager.cs" />
     <Compile Include="Identity\Claims\ClaimsIdentityProvider.cs" />
     <Compile Include="Identity\Claims\Contracts\IClaimsIdentityProvider.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Infrastructure\Mapper\RepositoryProfile.cs" />
     <Compile Include="Membership\AccountRepository.cs" />
     <Compile Include="Membership\Contracts\IAccountRepository.cs" />
+    <Compile Include="Membership\Contracts\IRoleRepository.cs" />
+    <Compile Include="Membership\RoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryBootstrapper.cs" />
   </ItemGroup>

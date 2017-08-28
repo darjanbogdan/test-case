@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,17 @@ namespace TestCase.Repository.Identity.Claims
     public class ClaimsIdentityProvider : IClaimsIdentityProvider
     {
         private readonly UserManager<UserEntity, Guid> userManager;
+        private readonly IMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClaimsIdentityProvider"/> class.
+        /// Initializes a new instance of the <see cref="ClaimsIdentityProvider" /> class.
         /// </summary>
         /// <param name="userManager">The user manager.</param>
-        public ClaimsIdentityProvider(UserManager<UserEntity, Guid> userManager)
+        /// <param name="mapper">The mapper.</param>
+        public ClaimsIdentityProvider(UserManager<UserEntity, Guid> userManager, IMapper mapper)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -36,13 +40,7 @@ namespace TestCase.Repository.Identity.Claims
         public async Task<ClaimsIdentity> GetAsync(Account account)
         {
             const string authenticationType = "JWT";
-            var user = new UserEntity
-            {
-                Email = account.Email,
-                UserName = account.UserName,
-                Id = account.UserId
-            };
-
+            var user = this.mapper.Map<Account, UserEntity>(account);
             return await this.userManager.CreateIdentityAsync(user, authenticationType);
         }
     }

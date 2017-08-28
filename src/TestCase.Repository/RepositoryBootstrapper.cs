@@ -27,14 +27,27 @@ namespace TestCase.Repository
         /// <param name="container">The container.</param>
         public static void Bootstrap(Container container)
         {
+            RegisterIdentity(container);
+
+            RegisterRepositories(container);
+        }
+
+        private static void RegisterIdentity(Container container)
+        {
             container.Register<IPasswordHasher, DefaultPasswordHasher>(Lifestyle.Scoped);
             container.Register<IIdentityValidator<string>, DefaultPasswordValidator>(Lifestyle.Scoped);
             container.Register<IIdentityUserValidatorFactory, DefaultUserValidatorFactory>(Lifestyle.Scoped);
+
             container.Register<UserManager<UserEntity, Guid>, TestCaseUserManager>(Lifestyle.Scoped);
+            container.Register<RoleManager<RoleEntity, Guid>, TestCaseRoleManager>(Lifestyle.Scoped);
 
             container.Register<IClaimsIdentityProvider, ClaimsIdentityProvider>();
+        }
 
+        private static void RegisterRepositories(Container container)
+        {
             container.Register<IAccountRepository, AccountRepository>();
+            container.Register<IRoleRepository, RoleRepository>();
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Entities.Identity;
+using TestCase.DataAccess.Entities.Permission;
+using TestCase.DataAccess.Entities.Permission.Maps;
 using TestCase.DataAccess.Migrations;
 
 namespace TestCase.DataAccess.Context
@@ -21,7 +23,7 @@ namespace TestCase.DataAccess.Context
         /// </summary>
         static TestCaseDbContext()
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<TestCaseDbContext, Configuration>("DefaultConnection"));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<TestCaseDbContext, Configuration>("DefaultConnection"));
 
             //Note: Ensures that EntityFramework.SqlServer.dll (implicit dependency ) is copied into host's /bin folder
             var staticDependency = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
@@ -43,6 +45,30 @@ namespace TestCase.DataAccess.Context
             : base(connectionString)
         {
             
+        }
+
+        /// <summary>
+        /// Gets or sets the permission.
+        /// </summary>
+        public IDbSet<PermissionEntity> Permission { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permission policy.
+        /// </summary>
+        public IDbSet<PermissionPolicyEntity> PermissionPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permission group.
+        /// </summary>
+        public IDbSet<PermissionGroupEntity> PermissionGroup { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Configurations.Add(new PermissionEntityMap());
+            modelBuilder.Configurations.Add(new PermissionPolicyEntityMap());
+            modelBuilder.Configurations.Add(new PermissionGroupEntityMap());
         }
     }
 }

@@ -16,15 +16,15 @@ namespace TestCase.WebApi.Infrastructure.OAuth
     /// <seealso cref="Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider" />
     public class DefaultOAuthAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly Func<IQueryHandler<GetUserClaimsIdentityQuery, GetUserClaimsIdentityResult>> handlerFactory;
+        private readonly Func<IQueryHandler<GetUserClaimsIdentityQuery, GetUserClaimsIdentityResult>> getUserClaimsHandlerFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultOAuthAuthorizationServerProvider"/> class.
+        /// Initializes a new instance of the <see cref="DefaultOAuthAuthorizationServerProvider" /> class.
         /// </summary>
-        /// <param name="handlerFactory">The handler factory.</param>
-        public DefaultOAuthAuthorizationServerProvider(Func<IQueryHandler<GetUserClaimsIdentityQuery, GetUserClaimsIdentityResult>> handlerFactory)
+        /// <param name="getUserClaimsHandlerFactory">The handler factory.</param>
+        public DefaultOAuthAuthorizationServerProvider(Func<IQueryHandler<GetUserClaimsIdentityQuery, GetUserClaimsIdentityResult>> getUserClaimsHandlerFactory)
         {
-            this.handlerFactory = handlerFactory;
+            this.getUserClaimsHandlerFactory = getUserClaimsHandlerFactory;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -37,7 +37,7 @@ namespace TestCase.WebApi.Infrastructure.OAuth
                 UserName = context.UserName
             };
 
-            var result = await this.handlerFactory().HandleAsync(query);
+            var result = await this.getUserClaimsHandlerFactory().HandleAsync(query);
             if (result != null)
             {
                 var ticket = new AuthenticationTicket(result.Identity, null);

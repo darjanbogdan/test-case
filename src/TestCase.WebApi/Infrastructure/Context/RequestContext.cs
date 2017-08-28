@@ -39,7 +39,7 @@ namespace TestCase.WebApi.Infrastructure.Context
             {
                 userInfo.UserName = currentContext.Authentication.User.Identity.Name;
                 userInfo.UserId = new Guid(currentContext.Authentication.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                //userInfo.Roles = currentContext.Authentication.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+                userInfo.Roles = currentContext.Authentication.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
             }
             return userInfo;
         }

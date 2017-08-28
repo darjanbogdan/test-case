@@ -69,12 +69,18 @@
     <Compile Include="Entities\Identity\UserEntity.cs" />
     <Compile Include="Entities\Identity\UserLoginEntity.cs" />
     <Compile Include="Entities\Identity\UserRoleEntity.cs" />
+    <Compile Include="Entities\Permission\Maps\PermissionEntityMap.cs" />
+    <Compile Include="Entities\Permission\Maps\PermissionGroupEntityMap.cs" />
+    <Compile Include="Entities\Permission\Maps\PermissionPolicyEntityMap.cs" />
+    <Compile Include="Entities\Permission\PermissionEntity.cs" />
+    <Compile Include="Entities\Permission\PermissionGroupEntity.cs" />
+    <Compile Include="Entities\Permission\PermissionPolicyEntity.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Identity\Stores\TestCaseRoleStore.cs" />
     <Compile Include="Identity\Stores\TestCaseUserStore.cs" />
-    <Compile Include="Migrations\201708261407042_Initial.cs" />
-    <Compile Include="Migrations\201708261407042_Initial.Designer.cs">
-      <DependentUpon>201708261407042_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201708282139313_Initial.cs" />
+    <Compile Include="Migrations\201708282139313_Initial.Designer.cs">
+      <DependentUpon>201708282139313_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,11 +90,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Maps\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708261407042_Initial.resx">
-      <DependentUpon>201708261407042_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708282139313_Initial.resx">
+      <DependentUpon>201708282139313_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

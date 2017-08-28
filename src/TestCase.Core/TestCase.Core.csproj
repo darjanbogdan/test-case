@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\IAuthenticate.cs" />
-    <Compile Include="Auth\IAuthorize.cs" />
+    <Compile Include="Auth\IAuthenticateModel.cs" />
+    <Compile Include="Auth\IAuthorizeModel.cs" />
     <Compile Include="Caching\ICache.cs" />
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Context\IExecutionContext.cs" />
