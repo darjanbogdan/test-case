@@ -33,7 +33,7 @@
 using System;
 using System.Linq;
 
-namespace TestCase.Service.SimpleHelpers
+namespace TestCase.Service.Caching.InMemory
 {
     /// <summary>
     /// Simple lightweight object in-memory cache, with a background timer to remove expired objects.

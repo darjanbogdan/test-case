@@ -32,7 +32,7 @@
 
 using System;
 
-namespace TestCase.Service.SimpleHelpers
+namespace TestCase.Service.Caching.InMemory
 {
     /// <summary>
     /// Synchronization helper: a static lock collection associated with a key.
@@ -167,7 +167,9 @@ namespace TestCase.Service.SimpleHelpers
         {
             if (!m_locked)
             {
+#pragma warning disable CS0420 // A reference to a volatile field will not be treated as volatile
                 System.Threading.Monitor.Enter (m_padlock, ref m_locked);
+#pragma warning restore CS0420 // A reference to a volatile field will not be treated as volatile
             }
             return m_locked;
         }
@@ -181,7 +183,9 @@ namespace TestCase.Service.SimpleHelpers
         {
             if (!m_locked)
             {
+#pragma warning disable CS0420 // A reference to a volatile field will not be treated as volatile
                 System.Threading.Monitor.TryEnter (m_padlock, waitTimeoutMilliseconds, ref m_locked);
+#pragma warning restore CS0420 // A reference to a volatile field will not be treated as volatile
             }
             return m_locked;
         }

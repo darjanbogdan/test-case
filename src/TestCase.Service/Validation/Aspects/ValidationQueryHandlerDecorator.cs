@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TestCase.Core.Query;
 using TestCase.Core.Validation;
 
-namespace TestCase.Service.Aspects.Validation
+namespace TestCase.Service.Validation.Aspects
 {
     /// <summary>
     /// Validation query handler decorator.

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Context;
+using TestCase.DataAccess.Contracts;
 using TestCase.DataAccess.Entities.Identity;
 using TestCase.DataAccess.Identity.Stores;
 
@@ -27,8 +28,9 @@ namespace TestCase.DataAccess
             container.Register<DbContext>(() => new TestCaseDbContext(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString), Lifestyle.Scoped);
 
             container.Register<IUserStore<UserEntity, Guid>, TestCaseUserStore>(Lifestyle.Scoped);
-
             container.Register<IRoleStore<RoleEntity, Guid>, TestCaseRoleStore>(Lifestyle.Scoped);
+
+            container.Register(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         }
     }
 }

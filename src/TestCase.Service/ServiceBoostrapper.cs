@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TestCase.Core.Command;
 using TestCase.Core.Query;
 using TestCase.Core.Validation;
-using TestCase.Service.Aspects.Validation;
+using TestCase.Service.Validation.Aspects;
 
 namespace TestCase.Service
 {

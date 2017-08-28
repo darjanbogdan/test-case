@@ -61,12 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\TestCaseDbContext.cs" />
+    <Compile Include="Contracts\IGenericRepository.cs" />
     <Compile Include="DataAccessBootstrapper.cs" />
+    <Compile Include="Entities\Contracts\IEntity.cs" />
     <Compile Include="Entities\Identity\RoleEntity.cs" />
     <Compile Include="Entities\Identity\UserClaimEntity.cs" />
     <Compile Include="Entities\Identity\UserEntity.cs" />
     <Compile Include="Entities\Identity\UserLoginEntity.cs" />
     <Compile Include="Entities\Identity\UserRoleEntity.cs" />
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="Identity\Stores\TestCaseRoleStore.cs" />
     <Compile Include="Identity\Stores\TestCaseUserStore.cs" />
     <Compile Include="Migrations\201708261407042_Initial.cs" />

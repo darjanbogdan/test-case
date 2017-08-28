@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Validation;
 
-namespace TestCase.Service.Infrastructure.Validation
+namespace TestCase.Service.Validation
 {
     /// <summary>
     /// Base model validator.
