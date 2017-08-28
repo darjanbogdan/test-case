@@ -45,6 +45,18 @@ namespace TestCase.DataAccess
         }
 
         /// <summary>
+        /// Asynchronously finds the entites.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IQueryable<TEntity>> FindAsync()
+        {
+            using (var context = this.contextFactory())
+            {
+                return Task.FromResult(context.Set<TEntity>().AsQueryable());
+            }
+        }
+
+        /// <summary>
         /// Asynchronously gets all entities.
         /// </summary>
         /// <returns></returns>

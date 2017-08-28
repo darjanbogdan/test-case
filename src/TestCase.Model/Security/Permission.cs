@@ -4,26 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.Core.Auth
+namespace TestCase.Model.Security
 {
     /// <summary>
-    /// Authorize model contract.
+    /// Permission.
     /// </summary>
-    public interface IAuthorizeModel
+    public class Permission
     {
         /// <summary>
-        /// Gets the owner identifier.
+        /// Gets or sets the identifier.
         /// </summary>
-        Guid? OwnerId { get; }
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets the permission group.
+        /// Gets or sets the name.
         /// </summary>
-        string PermissionGroup { get; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets the permission.
+        /// Gets or sets the abrv.
         /// </summary>
-        string Permission { get; }
+        public string Abrv { get; set; }
     }
 }

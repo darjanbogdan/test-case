@@ -34,6 +34,12 @@ namespace TestCase.DataAccess.Contracts
         Task<TEntity> GetAsync(Guid entityId);
 
         /// <summary>
+        /// Asynchronously finds the entites.
+        /// </summary>
+        /// <returns></returns>
+        Task<IQueryable<TEntity>> FindAsync();
+
+        /// <summary>
         /// Asynchronously inserts the entity.
         /// </summary>
         /// <param name="entity">The entity.</param>

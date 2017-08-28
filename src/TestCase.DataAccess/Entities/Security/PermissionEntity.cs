@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Entities.Contracts;
 
-namespace TestCase.DataAccess.Entities.Permission
+namespace TestCase.DataAccess.Entities.Security
 {
     /// <summary>
     /// Permission entity.

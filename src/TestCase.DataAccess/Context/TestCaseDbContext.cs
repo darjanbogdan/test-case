@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Entities.Identity;
-using TestCase.DataAccess.Entities.Permission;
-using TestCase.DataAccess.Entities.Permission.Maps;
+using TestCase.DataAccess.Entities.Security;
+using TestCase.DataAccess.Entities.Security.Maps;
 using TestCase.DataAccess.Migrations;
 
 namespace TestCase.DataAccess.Context

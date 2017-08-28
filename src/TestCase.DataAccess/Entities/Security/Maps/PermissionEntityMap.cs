@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.DataAccess.Entities.Permission.Maps
+namespace TestCase.DataAccess.Entities.Security.Maps
 {
     /// <summary>
     /// Permission entity map.

@@ -6,7 +6,7 @@ namespace TestCase.DataAccess.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using TestCase.DataAccess.Entities.Identity;
-    using TestCase.DataAccess.Entities.Permission;
+    using TestCase.DataAccess.Entities.Security;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TestCase.DataAccess.Context.TestCaseDbContext>
     {
