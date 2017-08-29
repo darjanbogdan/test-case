@@ -25,8 +25,6 @@ namespace TestCase.DataAccess.Context
         /// </summary>
         static TestCaseDbContext()
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<TestCaseDbContext, Configuration>("DefaultConnection"));
-
             //Note: Ensures that EntityFramework.SqlServer.dll (implicit dependency ) is copied into host's /bin folder
             var staticDependency = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
         }

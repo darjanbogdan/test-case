@@ -16,15 +16,15 @@ namespace TestCase.DataAccess
     /// <seealso cref="TestCase.DataAccess.Contracts.IGenericRepository{TEntity}" />
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity, new()
     {
-        private readonly Func<DbContext> contextFactory;
+        private readonly DbContext context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericRepository{TEntity}" /> class.
         /// </summary>
-        /// <param name="contextFactory">The context factory.</param>
-        public GenericRepository(Func<DbContext> contextFactory)
+        /// <param name="context">The context.</param>
+        public GenericRepository(DbContext context)
         {
-            this.contextFactory = contextFactory;
+            this.context = context;
         }
 
         /// <summary>
@@ -34,14 +34,11 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public async Task DeleteAsync(Guid entityId)
         {
-            using (var context = this.contextFactory())
-            {
-                TEntity entity = new TEntity() { Id = entityId };
+            TEntity entity = new TEntity() { Id = entityId };
 
-                context.Set<TEntity>().Attach(entity);
-                context.Entry<TEntity>(entity).State = EntityState.Deleted;
-                await context.SaveChangesAsync();
-            }
+            this.context.Set<TEntity>().Attach(entity);
+            this.context.Entry<TEntity>(entity).State = EntityState.Deleted;
+            await this.context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -50,10 +47,7 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public Task<IQueryable<TEntity>> FindAsync()
         {
-            using (var context = this.contextFactory())
-            {
-                return Task.FromResult(context.Set<TEntity>().AsQueryable());
-            }
+            return Task.FromResult(this.context.Set<TEntity>().AsQueryable());
         }
 
         /// <summary>
@@ -62,10 +56,7 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public async Task<IList<TEntity>> GetAllAsync()
         {
-            using (var context = this.contextFactory())
-            {
-                return await context.Set<TEntity>().AsNoTracking().Where(p => p != null).ToListAsync();
-            }
+            return await this.context.Set<TEntity>().AsNoTracking().Where(p => p != null).ToListAsync();
         }
 
         /// <summary>
@@ -75,10 +66,7 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public async Task<TEntity> GetAsync(Guid entityId)
         {
-            using(var context = this.contextFactory())
-            {
-                return await context.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(e => e.Id == entityId);
-            }
+            return await this.context.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(e => e.Id == entityId);
         }
 
         /// <summary>
@@ -88,11 +76,11 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public async Task InsertAsync(TEntity entity)
         {
-            using (var context = this.contextFactory())
-            {
-                context.Set<TEntity>().Add(entity);
-                await context.SaveChangesAsync();
-            }
+            entity.DateCreated = DateTime.UtcNow;
+            entity.DateUpdated = DateTime.UtcNow;
+
+            this.context.Set<TEntity>().Add(entity);
+            await this.context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -102,13 +90,12 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public async Task UpdateAsync(TEntity entity)
         {
-            using(var context = this.contextFactory())
-            {
-                context.Set<TEntity>().Attach(entity);
-                context.Entry<TEntity>(entity).State = EntityState.Modified;
-                context.Entry<TEntity>(entity).Property(x => x.DateCreated).IsModified = false;
-                await context.SaveChangesAsync();
-            }
+            entity.DateUpdated = DateTime.UtcNow;
+
+            this.context.Set<TEntity>().Attach(entity);
+            this.context.Entry<TEntity>(entity).State = EntityState.Modified;
+            this.context.Entry<TEntity>(entity).Property(x => x.DateCreated).IsModified = false;
+            await this.context.SaveChangesAsync();
         }
     }
 }

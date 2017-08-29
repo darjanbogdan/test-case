@@ -53,6 +53,12 @@
     <Compile Include="Auth\Aspects\AuthenticationQueryHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationCommandHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
+    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommand.cs" />
+    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommandHandler.cs" />
+    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommandValidator.cs" />
+    <Compile Include="Locking\Lock\Create\CreateLockCommand.cs" />
+    <Compile Include="Locking\Lock\Create\CreateLockCommandHandler.cs" />
+    <Compile Include="Locking\Lock\Create\CreateLockCommandValidator.cs" />
     <Compile Include="Security\Contracts\IObjectPermissionEvaluator.cs" />
     <Compile Include="Security\GroupPermissionEvaluator.cs" />
     <Compile Include="Security\Contracts\IGroupPermissionEvaluator.cs" />
@@ -91,7 +97,7 @@
       <Name>TestCase.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestCase.Model\TestCase.Model.csproj">
-      <Project>{18D814D3-61B3-478C-BC35-7F8DF0E4287A}</Project>
+      <Project>{18d814d3-61b3-478c-bc35-7f8df0e4287a}</Project>
       <Name>TestCase.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestCase.Repository\TestCase.Repository.csproj">
@@ -102,6 +108,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Locking\Event\Create\" />
+    <Folder Include="Locking\Event\Find\" />
+    <Folder Include="Locking\Lock\Delete\" />
+    <Folder Include="Locking\Lock\Find\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

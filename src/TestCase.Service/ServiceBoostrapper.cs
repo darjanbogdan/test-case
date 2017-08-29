@@ -11,6 +11,8 @@ using TestCase.Core.Query;
 using TestCase.Core.Validation;
 using TestCase.Service.Auth.Aspects;
 using TestCase.Service.Infrastructure.Lookups.Contracts;
+using TestCase.Service.Security;
+using TestCase.Service.Security.Contracts;
 using TestCase.Service.Validation.Aspects;
 
 namespace TestCase.Service
@@ -31,9 +33,21 @@ namespace TestCase.Service
             RegisterMapper(container, assemblies);
 
             RegisterLookups(container, assemblies);
+            RegisterValidators(container, assemblies);
+            RegisterSecurityEvaluators(container, assemblies);
 
             RegisterCommandHandlerPipeline(container, assemblies);
             RegisterQueryHandlerPipeline(container, assemblies);
+        }
+
+        private static void RegisterSecurityEvaluators(Container container, Assembly[] assemblies)
+        {
+            container.Register<IGroupPermissionEvaluator, GroupPermissionEvaluator>();
+        }
+
+        private static void RegisterValidators(Container container, Assembly[] assemblies)
+        {
+            container.Register(typeof(IModelValidator<>), assemblies);
         }
 
         private static void RegisterLookups(Container container, Assembly[] assemblies)
@@ -77,7 +91,6 @@ namespace TestCase.Service
             container.Register(typeof(ICommandHandler<>), assemblies);
 
             // Validation
-            container.Register(typeof(IModelValidator<>), assemblies);
             container.RegisterDecorator(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
             
             //Auth

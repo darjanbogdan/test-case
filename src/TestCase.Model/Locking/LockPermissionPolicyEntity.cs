@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCase.DataAccess.Model.Locking;
 using TestCase.Model.Membership;
 using TestCase.Model.Security;
 
-namespace TestCase.DataAccess.Entities.Locking
+namespace TestCase.Model.Locking
 {
     /// <summary>
     /// Lock permission policy model.

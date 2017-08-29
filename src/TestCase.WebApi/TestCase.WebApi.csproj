@@ -129,6 +129,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\LockController.cs" />
     <Compile Include="Infrastructure\Context\RequestContext.cs" />
     <Compile Include="Infrastructure\DependencyInjection\ContainerOptionsExtensions.cs" />
     <Compile Include="Infrastructure\Mapper\WebApiProfile.cs" />

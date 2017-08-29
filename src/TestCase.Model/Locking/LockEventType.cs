@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.DataAccess.Entities.Locking
+namespace TestCase.Model.Locking
 {
     /// <summary>
     /// Lock event type model.

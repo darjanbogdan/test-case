@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCase.DataAccess.Entities.Locking;
 using TestCase.Model.Membership;
 
-namespace TestCase.DataAccess.Model.Locking
+namespace TestCase.Model.Locking
 {
     /// <summary>
     /// Lock model.

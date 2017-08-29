@@ -14,26 +14,26 @@ namespace TestCase.Service.Security.Maps
         /// <summary>
         /// The create permission.
         /// </summary>
-        public const string Create = "Create";
+        public const string Create = "create";
 
         /// <summary>
         /// The read permission
         /// </summary>
-        public const string Read = "Read";
+        public const string Read = "read";
 
         /// <summary>
         /// The update permission
         /// </summary>
-        public const string Update = "Update";
+        public const string Update = "update";
 
         /// <summary>
         /// The delete permission.
         /// </summary>
-        public const string Delete = "Delete";
+        public const string Delete = "delete";
 
         /// <summary>
         /// The full permission.
         /// </summary>
-        public const string Full = "Full";
+        public const string Full = "full";
     }
 }

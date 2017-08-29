@@ -72,6 +72,8 @@
     <Compile Include="Identity\Security\Contracts\IIdentityUserValidatorFactory.cs" />
     <Compile Include="Identity\Security\DefaultUserValidatorFactory.cs" />
     <Compile Include="Infrastructure\Mapper\RepositoryProfile.cs" />
+    <Compile Include="Locking\Contracts\ILockRepository.cs" />
+    <Compile Include="Locking\LockRepository.cs" />
     <Compile Include="Membership\UserRepository.cs" />
     <Compile Include="Membership\Contracts\IUserRepository.cs" />
     <Compile Include="Membership\Contracts\IRoleRepository.cs" />
@@ -102,8 +104,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Locking\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

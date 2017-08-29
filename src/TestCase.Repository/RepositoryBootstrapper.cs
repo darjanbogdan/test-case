@@ -15,6 +15,8 @@ using TestCase.Repository.Membership;
 using TestCase.Repository.Membership.Contracts;
 using TestCase.Repository.Security.Contracts;
 using TestCase.Repository.Security;
+using TestCase.Repository.Locking.Contracts;
+using TestCase.Repository.Locking;
 
 namespace TestCase.Repository
 {
@@ -54,6 +56,8 @@ namespace TestCase.Repository
             container.Register<IPermissionRepository, PermissionRepository>();
             container.Register<IPermissionGroupRepository, PermissionGroupRepository>();
             container.Register<IPermissionPolicyRepository, PermissionPolicyRepository>();
+
+            container.Register<ILockRepository, LockRepository>();
         }
     }
 }

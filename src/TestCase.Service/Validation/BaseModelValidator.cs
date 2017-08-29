@@ -21,7 +21,7 @@ namespace TestCase.Service.Validation
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public Task ValidateAsync(T model)
+        public virtual Task ValidateAsync(T model)
         {
             if (model == null) throw new ValidationException(new[] { new FluentValidation.Results.ValidationFailure(nameof(model), "Model is required") });
 

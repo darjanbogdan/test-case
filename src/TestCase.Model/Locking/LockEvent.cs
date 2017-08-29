@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCase.DataAccess.Model.Locking;
 
-namespace TestCase.DataAccess.Entities.Locking
+namespace TestCase.Model.Locking
 {
     /// <summary>
     /// Lock event model.
