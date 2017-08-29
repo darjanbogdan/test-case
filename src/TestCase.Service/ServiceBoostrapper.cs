@@ -43,6 +43,8 @@ namespace TestCase.Service
         private static void RegisterSecurityEvaluators(Container container, Assembly[] assemblies)
         {
             container.Register<IGroupPermissionEvaluator, GroupPermissionEvaluator>();
+            container.Register(typeof(IObjectPermissionEvaluator<>), assemblies);
+            container.RegisterConditional(typeof(IObjectPermissionEvaluator<>), typeof(NullObjectPermissionEvaluator<>), c => !c.Handled);
         }
 
         private static void RegisterValidators(Container container, Assembly[] assemblies)

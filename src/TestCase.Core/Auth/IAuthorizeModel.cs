@@ -12,11 +12,6 @@ namespace TestCase.Core.Auth
     public interface IAuthorizeModel
     {
         /// <summary>
-        /// Gets the owner identifier.
-        /// </summary>
-        Guid? OwnerId { get; }
-
-        /// <summary>
         /// Gets the permission group.
         /// </summary>
         string PermissionGroup { get; }

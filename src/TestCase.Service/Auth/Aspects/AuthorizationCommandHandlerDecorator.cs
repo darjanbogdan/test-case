@@ -16,6 +16,7 @@ namespace TestCase.Service.Auth.Aspects
     /// <seealso cref="TestCase.Core.Command.ICommandHandler{TCommand}" />
     public class AuthorizationCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand> where TCommand : IAuthorizeModel
     {
+        private readonly IObjectPermissionEvaluator<TCommand> objectPermissionEvaluator;
         private readonly IGroupPermissionEvaluator groupPermissionEvaluator;
         private readonly ICommandHandler<TCommand> commandHandler;
 
@@ -23,8 +24,12 @@ namespace TestCase.Service.Auth.Aspects
         /// Initializes a new instance of the <see cref="AuthorizationCommandHandlerDecorator{TCommand}"/> class.
         /// </summary>
         /// <param name="commandHandler">The command handler.</param>
-        public AuthorizationCommandHandlerDecorator(IGroupPermissionEvaluator groupPermissionEvaluator, ICommandHandler<TCommand> commandHandler)
+        public AuthorizationCommandHandlerDecorator(
+            IObjectPermissionEvaluator<TCommand> objectPermissionEvaluator,
+            IGroupPermissionEvaluator groupPermissionEvaluator, 
+            ICommandHandler<TCommand> commandHandler)
         {
+            this.objectPermissionEvaluator = objectPermissionEvaluator;
             this.groupPermissionEvaluator = groupPermissionEvaluator;
             this.commandHandler = commandHandler;
         }
@@ -36,8 +41,15 @@ namespace TestCase.Service.Auth.Aspects
         /// <returns></returns>
         public async Task HandleAsync(TCommand command)
         {
-            await this.groupPermissionEvaluator.EvaluateAsync(command);
-
+            var hasObjectPermissions = await this.objectPermissionEvaluator.EvaluateAsync(command);
+            if (!hasObjectPermissions)
+            {
+                var hasGroupPermissions = await this.groupPermissionEvaluator.EvaluateAsync(command);
+                if (!hasGroupPermissions)
+                {
+                    throw new UnauthorizedAccessException("Not Authorized");
+                }
+            }
             await this.commandHandler.HandleAsync(command);
         }
     }

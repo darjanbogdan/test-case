@@ -47,28 +47,25 @@ namespace TestCase.Service.Security
         /// </summary>
         /// <param name="authorizeModel">The authorize model.</param>
         /// <returns></returns>
-        public async Task EvaluateAsync(IAuthorizeModel authorizeModel)
+        public async Task<bool> EvaluateAsync(IAuthorizeModel authorizeModel)
         {
-            var isOwner = this.executionContext.UserInfo.UserId.Equals(authorizeModel.OwnerId.GetValueOrDefault());
-            if (!isOwner)
+            var permissionGroupId = (await this.permissionGroupLookup.GetAsync(authorizeModel.PermissionGroup)).Id;
+            var permissionId = (await this.permissionLookup.GetAsync(authorizeModel.Permission)).Id;
+
+            var userId = this.executionContext.UserInfo.UserId;
+            var roleIds = new List<Guid>();
+            foreach (var role in this.executionContext.UserInfo.Roles)
             {
-                var permissionGroupId = (await this.permissionGroupLookup.GetAsync(authorizeModel.PermissionGroup)).Id;
-                var permissionId = (await this.permissionLookup.GetAsync(authorizeModel.Permission)).Id;
-
-                var userId = this.executionContext.UserInfo.UserId;
-                var roleIds = new List<Guid>();
-                foreach (var role in this.executionContext.UserInfo.Roles)
-                {
-                    var roleId = (await this.roleLookup.GetAsync(role)).Id;
-                    roleIds.Add(roleId);
-                }
-
-                var policies = await this.permissionPolicyRepository.FindAsync(permissionGroupId, permissionId, userId, roleIds.ToArray());
-                if (policies == null || !policies.Any())
-                {
-                    throw new UnauthorizedAccessException("Not Authorized");
-                }
+                var roleId = (await this.roleLookup.GetAsync(role)).Id;
+                roleIds.Add(roleId);
             }
+
+            var policies = await this.permissionPolicyRepository.FindAsync(permissionGroupId, permissionId, userId, roleIds.ToArray());
+            if (policies == null || !policies.Any())
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

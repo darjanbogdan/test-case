@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCase.Core.Auth;
+using TestCase.Service.Security.Contracts;
 
-namespace TestCase.Service.Security.Contracts
+namespace TestCase.Service.Security
 {
     /// <summary>
-    /// Object permission evaluator contract.
+    /// Null object permission evaluator.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IObjectPermissionEvaluator<T>
+    public class NullObjectPermissionEvaluator<T> : IObjectPermissionEvaluator<T> where T: IAuthorizeModel
     {
         /// <summary>
         /// Asynchronously evaluates the object permissions for given model.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        Task<bool> EvaluateAsync(T model);
+        public Task<bool> EvaluateAsync(T model) => Task.FromResult(true);
     }
 }

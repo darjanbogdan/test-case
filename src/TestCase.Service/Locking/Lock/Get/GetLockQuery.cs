@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Auth;
+using TestCase.Core.Query;
 using TestCase.Core.Validation;
 using TestCase.Service.Security.Maps;
 
-namespace TestCase.Service.Locking.Lock.ChangeStatus
+namespace TestCase.Service.Locking.Lock.Get
 {
     /// <summary>
-    /// Change stauts command.
+    /// Get lock query.
     /// </summary>
-    public class ChangeStatusCommand : IAuthenticateModel, IAuthorizeModel
+    /// <seealso cref="TestCase.Core.Query.IQuery{TestCase.Service.Locking.Lock.Get.GetLockResult}" />
+    public class GetLockQuery : IQuery<GetLockResult>, IValidateModel, IAuthenticateModel, IAuthorizeModel
     {
         /// <summary>
         /// Gets or sets the lock identifier.
@@ -20,9 +22,9 @@ namespace TestCase.Service.Locking.Lock.ChangeStatus
         public Guid LockId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="ChangeStatusCommand"/> is locked.
+        /// Gets the name of the model.
         /// </summary>
-        public bool Locked { get; set; }
+        string IValidateModel.Name => nameof(GetLockQuery);
 
         /// <summary>
         /// Gets the permission group.
@@ -32,6 +34,6 @@ namespace TestCase.Service.Locking.Lock.ChangeStatus
         /// <summary>
         /// Gets the permission.
         /// </summary>
-        string IAuthorizeModel.Permission => PermissionMap.Update;
+        string IAuthorizeModel.Permission => PermissionMap.Read;
     }
 }

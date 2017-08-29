@@ -55,10 +55,14 @@
     <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
     <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommand.cs" />
     <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommandHandler.cs" />
-    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommandValidator.cs" />
+    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusObjectPermissionEvaluator.cs" />
     <Compile Include="Locking\Lock\Create\CreateLockCommand.cs" />
     <Compile Include="Locking\Lock\Create\CreateLockCommandHandler.cs" />
     <Compile Include="Locking\Lock\Create\CreateLockCommandValidator.cs" />
+    <Compile Include="Locking\Lock\Get\GetLockQuery.cs" />
+    <Compile Include="Locking\Lock\Get\GetLockQueryHandler.cs" />
+    <Compile Include="Locking\Lock\Get\GetLockQueryValidator.cs" />
+    <Compile Include="Locking\Lock\Get\GetLockResult.cs" />
     <Compile Include="Security\Contracts\IObjectPermissionEvaluator.cs" />
     <Compile Include="Security\GroupPermissionEvaluator.cs" />
     <Compile Include="Security\Contracts\IGroupPermissionEvaluator.cs" />
@@ -68,7 +72,7 @@
     <Compile Include="Security\Lookups\PermissionLookup.cs" />
     <Compile Include="Security\Maps\PermissionGroupMap.cs" />
     <Compile Include="Security\Maps\PermissionMap.cs" />
-    <Compile Include="Security\ObjectPermissionEvaluator.cs" />
+    <Compile Include="Security\NullObjectPermissionEvaluator.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\Contracts\ICacheProvider.cs" />
     <Compile Include="Infrastructure\Lookups\Contracts\ILookup.cs" />

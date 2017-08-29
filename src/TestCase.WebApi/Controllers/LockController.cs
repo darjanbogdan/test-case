@@ -9,8 +9,10 @@ using System.Web;
 using System.Web.Http;
 using TestCase.Core.Command;
 using TestCase.Core.Context;
+using TestCase.Core.Query;
 using TestCase.Service.Locking.Lock.ChangeStatus;
 using TestCase.Service.Locking.Lock.Create;
+using TestCase.Service.Locking.Lock.Get;
 
 namespace TestCase.WebApi.Controllers
 {
@@ -23,6 +25,7 @@ namespace TestCase.WebApi.Controllers
     {
         private readonly ICommandHandler<CreateLockCommand> createLockHandler;
         private readonly ICommandHandler<ChangeStatusCommand> changeStatusHandler;
+        private readonly IQueryHandler<GetLockQuery, GetLockResult> getLockHandler;
         private readonly IExecutionContext executionContext;
         private readonly IMapper mapper;
 
@@ -31,16 +34,19 @@ namespace TestCase.WebApi.Controllers
         /// </summary>
         /// <param name="createLockHandler">The create lock handler.</param>
         /// <param name="changeStatusHandler">The change status handler.</param>
+        /// <param name="getLockHandler">The get lock handler.</param>
         /// <param name="executionContext">The execution context.</param>
         /// <param name="mapper">The mapper.</param>
         public LockController(
             ICommandHandler<CreateLockCommand> createLockHandler,
             ICommandHandler<ChangeStatusCommand> changeStatusHandler,
+            IQueryHandler<GetLockQuery, GetLockResult> getLockHandler,
             IExecutionContext executionContext,
             IMapper mapper)
         {
             this.createLockHandler = createLockHandler;
             this.changeStatusHandler = changeStatusHandler;
+            this.getLockHandler = getLockHandler;
             this.executionContext = executionContext;
             this.mapper = mapper;
         }
@@ -71,10 +77,15 @@ namespace TestCase.WebApi.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> LockAsync(Guid lockId)
         {
+            //var existingLock = await this.getLockHandler.HandleAsync(new GetLockQuery() { LockId = lockId });
+            //if (existingLock == null)
+            //{
+            //    return Request.CreateResponse(HttpStatusCode.NotFound);
+            //}
+
             var command = new ChangeStatusCommand
             {
                 Locked = true,
-                UserId = this.executionContext.UserInfo.UserId,
                 LockId = lockId
             };
 
@@ -95,7 +106,6 @@ namespace TestCase.WebApi.Controllers
             var command = new ChangeStatusCommand
             {
                 Locked = false,
-                UserId = this.executionContext.UserInfo.UserId,
                 LockId = lockId
             };
 

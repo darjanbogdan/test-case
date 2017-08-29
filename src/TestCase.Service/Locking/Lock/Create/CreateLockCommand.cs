@@ -45,11 +45,6 @@ namespace TestCase.Service.Locking.Lock.Create
         string IValidateModel.Name => nameof(CreateLockCommand);
 
         /// <summary>
-        /// Gets the owner identifier.
-        /// </summary>
-        Guid? IAuthorizeModel.OwnerId => null;
-
-        /// <summary>
         /// Gets the permission group.
         /// </summary>
         string IAuthorizeModel.PermissionGroup => PermissionGroupMap.Lock;

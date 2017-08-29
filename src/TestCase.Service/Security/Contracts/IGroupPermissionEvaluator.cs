@@ -17,6 +17,6 @@ namespace TestCase.Service.Security.Contracts
         /// </summary>
         /// <param name="authorizeModel">The authorize model.</param>
         /// <returns></returns>
-        Task EvaluateAsync(IAuthorizeModel authorizeModel);
+        Task<bool> EvaluateAsync(IAuthorizeModel authorizeModel);
     }
 }
