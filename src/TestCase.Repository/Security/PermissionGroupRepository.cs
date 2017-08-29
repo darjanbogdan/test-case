@@ -36,7 +36,7 @@ namespace TestCase.Repository.Security
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<IList<PermissionGroup>> GetAllAsync()
+        public async Task<IEnumerable<PermissionGroup>> GetAllAsync()
         {
             var entites = await this.genericRepository.GetAllAsync();
             return this.mapper.Map<List<PermissionGroup>>(entites);

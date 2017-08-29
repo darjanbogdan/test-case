@@ -35,13 +35,13 @@ namespace TestCase.Repository.Identity.Claims
         /// <summary>
         /// Asynchronously gets the claims identity.
         /// </summary>
-        /// <param name="account">The account.</param>
+        /// <param name="user">The user.</param>
         /// <returns></returns>
-        public async Task<ClaimsIdentity> GetAsync(Account account)
+        public async Task<ClaimsIdentity> GetAsync(User user)
         {
             const string authenticationType = "JWT";
-            var user = this.mapper.Map<Account, UserEntity>(account);
-            return await this.userManager.CreateIdentityAsync(user, authenticationType);
+            var entity = this.mapper.Map<User, UserEntity>(user);
+            return await this.userManager.CreateIdentityAsync(entity, authenticationType);
         }
     }
 }

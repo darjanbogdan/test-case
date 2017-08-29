@@ -8,24 +8,24 @@ using TestCase.Model.Membership;
 namespace TestCase.Repository.Membership.Contracts
 {
     /// <summary>
-    /// Account repository contract.
+    /// User repository contract.
     /// </summary>
-    public interface IAccountRepository
+    public interface IUserRepository
     {
         /// <summary>
-        /// Asynchronously registers the account.
+        /// Asynchronously registers the user.
         /// </summary>
-        /// <param name="account">The account.</param>
+        /// <param name="user">The user.</param>
         /// <returns></returns>
-        Task RegisterAsync(Account account);
+        Task RegisterAsync(User user, string password);
 
         /// <summary>
-        /// Asynchronously gets the account.
+        /// Asynchronously gets the user.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        Task<Account> GetAsync(string userName, string password);
+        Task<User> GetAsync(string userName, string password);
 
         /// <summary>
         /// Asynchronously inserts the user roles.

@@ -15,17 +15,17 @@ namespace TestCase.Service.Membership.Login
     /// <seealso cref="TestCase.Core.Query.IQueryHandler{TestCase.Service.Membership.Login.GetUserClaimsIdentityResult, TestCase.Service.Membership.Login.GetUserClaimsIdentityQuery}" />
     public class GetUserClaimsIdentityQueryHandler : IQueryHandler<GetUserClaimsIdentityQuery, GetUserClaimsIdentityResult>
     {
-        private readonly IAccountRepository accountRepository;
+        private readonly IUserRepository userRepository;
         private readonly IClaimsIdentityProvider claimsIdentityProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserClaimsIdentityQueryHandler" /> class.
         /// </summary>
-        /// <param name="accountRepository">The account repository.</param>
+        /// <param name="userRepository">The user repository.</param>
         /// <param name="claimsIdentityProvider">The claims identity provider.</param>
-        public GetUserClaimsIdentityQueryHandler(IAccountRepository accountRepository, IClaimsIdentityProvider claimsIdentityProvider)
+        public GetUserClaimsIdentityQueryHandler(IUserRepository userRepository, IClaimsIdentityProvider claimsIdentityProvider)
         {
-            this.accountRepository = accountRepository;
+            this.userRepository = userRepository;
             this.claimsIdentityProvider = claimsIdentityProvider;
         }
 
@@ -36,10 +36,10 @@ namespace TestCase.Service.Membership.Login
         /// <returns></returns>
         public async Task<GetUserClaimsIdentityResult> HandleAsync(GetUserClaimsIdentityQuery query)
         {
-            var account = await this.accountRepository.GetAsync(query.UserName, query.Password);
-            if (account != null)
+            var user = await this.userRepository.GetAsync(query.UserName, query.Password);
+            if (user != null)
             {
-                var claimsIdentity = await this.claimsIdentityProvider.GetAsync(account);
+                var claimsIdentity = await this.claimsIdentityProvider.GetAsync(user);
                 return new GetUserClaimsIdentityResult
                 {
                     Identity = claimsIdentity

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace TestCase.Model.Membership
 {
     /// <summary>
-    /// Account model.
+    /// User model.
     /// </summary>
-    public class Account
+    public class User
     {
         /// <summary>
-        /// Gets or sets the user identifier.
+        /// Gets or sets the identifier.
         /// </summary>
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether email is confirmed.
@@ -25,11 +25,6 @@ namespace TestCase.Model.Membership
         /// Gets or sets the name of the user.
         /// </summary>
         public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        public string Password { get; set; }
 
         /// <summary>
         /// Gets or sets the email.

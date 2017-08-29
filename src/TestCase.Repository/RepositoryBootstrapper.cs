@@ -48,7 +48,7 @@ namespace TestCase.Repository
 
         private static void RegisterRepositories(Container container)
         {
-            container.Register<IAccountRepository, AccountRepository>();
+            container.Register<IUserRepository, UserRepository>();
             container.Register<IRoleRepository, RoleRepository>();
 
             container.Register<IPermissionRepository, PermissionRepository>();

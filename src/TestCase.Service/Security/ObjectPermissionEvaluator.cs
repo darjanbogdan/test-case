@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.Service.Auth
+namespace TestCase.Service.Security
 {
     public class ObjectPermissionEvaluator
     {

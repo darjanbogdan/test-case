@@ -69,6 +69,16 @@
     <Compile Include="Entities\Identity\UserEntity.cs" />
     <Compile Include="Entities\Identity\UserLoginEntity.cs" />
     <Compile Include="Entities\Identity\UserRoleEntity.cs" />
+    <Compile Include="Entities\Locking\LockEntity.cs" />
+    <Compile Include="Entities\Locking\LockEventEntity.cs" />
+    <Compile Include="Entities\Locking\LockEventTypeEntity.cs" />
+    <Compile Include="Entities\Locking\LockLocationEntity.cs" />
+    <Compile Include="Entities\Locking\LockPermissionPolicyEntity.cs" />
+    <Compile Include="Entities\Locking\Maps\LockEntityMap.cs" />
+    <Compile Include="Entities\Locking\Maps\LockEventEntityMap.cs" />
+    <Compile Include="Entities\Locking\Maps\LockEventTypeEntityMap.cs" />
+    <Compile Include="Entities\Locking\Maps\LockLocationEntityMap.cs" />
+    <Compile Include="Entities\Locking\Maps\LockPermissionPolicyEntityMap.cs" />
     <Compile Include="Entities\Security\Maps\PermissionEntityMap.cs" />
     <Compile Include="Entities\Security\Maps\PermissionGroupEntityMap.cs" />
     <Compile Include="Entities\Security\Maps\PermissionPolicyEntityMap.cs" />
@@ -82,6 +92,10 @@
     <Compile Include="Migrations\201708282139313_Initial.Designer.cs">
       <DependentUpon>201708282139313_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708291955356_CreateLockRelatedTables.cs" />
+    <Compile Include="Migrations\201708291955356_CreateLockRelatedTables.Designer.cs">
+      <DependentUpon>201708291955356_CreateLockRelatedTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -92,6 +106,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708282139313_Initial.resx">
       <DependentUpon>201708282139313_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708291955356_CreateLockRelatedTables.resx">
+      <DependentUpon>201708291955356_CreateLockRelatedTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

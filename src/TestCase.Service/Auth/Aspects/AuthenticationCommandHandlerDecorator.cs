@@ -38,7 +38,7 @@ namespace TestCase.Service.Auth.Aspects
         {
             if (!this.executionContext.UserInfo.IsAuthenticated)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("Not Authenticated");
             }
             return this.commandHandler.HandleAsync(command);
         }

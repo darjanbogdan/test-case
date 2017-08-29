@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Auth;
 
-namespace TestCase.Service.Auth.Contracts
+namespace TestCase.Service.Security.Contracts
 {
     /// <summary>
     /// Authorization evaluator contract.

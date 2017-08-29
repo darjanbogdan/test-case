@@ -58,7 +58,7 @@ namespace TestCase.Service
 
         private static void RegisterMapper(Container container, Assembly[] assemblies)
         {
-            var profileTypes = assemblies.SelectMany(asm => asm.GetTypes().Where(x => typeof(AutoMapper.Profile).IsAssignableFrom(x)));
+            var profileTypes = assemblies.SelectMany(asm => asm.GetTypes().Where(x => typeof(Profile).IsAssignableFrom(x)));
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -66,7 +66,7 @@ namespace TestCase.Service
                 
                 foreach (var profileType in profileTypes)
                 {
-                    cfg.AddProfile(Activator.CreateInstance(profileType) as AutoMapper.Profile);
+                    cfg.AddProfile(Activator.CreateInstance(profileType) as Profile);
                 }
             });
             container.Register<IMapper>(() => config.CreateMapper(container.GetInstance));

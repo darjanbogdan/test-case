@@ -12,41 +12,43 @@ using TestCase.Repository.Membership.Contracts;
 namespace TestCase.Repository.Membership
 {
     /// <summary>
-    /// Account repository.
+    /// User repository.
     /// </summary>
-    /// <seealso cref="TestCase.Repository.Identity.Contracts.IAccountRepository" />
-    public class AccountRepository : IAccountRepository
+    /// <seealso cref="TestCase.Repository.Membership.Contracts.IUserRepository" />
+    public class UserRepository : IUserRepository
     {
         private readonly UserManager<UserEntity, Guid> userManager;
         private readonly IMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountRepository" /> class.
+        /// Initializes a new instance of the <see cref="UserRepository" /> class.
         /// </summary>
         /// <param name="userManager">The user manager.</param>
         /// <param name="mapper">The mapper.</param>
-        public AccountRepository(UserManager<UserEntity, Guid> userManager, IMapper mapper)
+        public UserRepository(UserManager<UserEntity, Guid> userManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.mapper = mapper;
         }
 
         /// <summary>
-        /// Asynchronously registers the account.
+        /// Asynchronously registers the user.
         /// </summary>
-        /// <param name="account">The account.</param>
+        /// <param name="user">The user.</param>
+        /// <param name="password">The password.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">account</exception>
+        /// <exception cref="ArgumentNullException">user</exception>
         /// <exception cref="ArgumentException"></exception>
-        public async Task RegisterAsync(Account account)
+        public async Task RegisterAsync(User user, string password)
         {
-            if (account == null) throw new ArgumentNullException(nameof(account));
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (String.IsNullOrEmpty(password)) throw new ArgumentNullException(nameof(password));
 
-            var user = this.mapper.Map<Account, UserEntity>(account);
-            
+            var entity = this.mapper.Map<User, UserEntity>(user);
+
             //TODO: Add claims to database
 
-            var result = await this.userManager.CreateAsync(user, account.Password);
+            var result = await this.userManager.CreateAsync(entity, password);
             if (!result.Succeeded)
             {
                 throw new ArgumentException(String.Join(",", result.Errors));
@@ -72,17 +74,15 @@ namespace TestCase.Repository.Membership
             }
         }
         /// <summary>
-        /// Asynchronously gets the account.
+        /// Asynchronously gets the user.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        public async Task<Account> GetAsync(string userName, string password)
+        public async Task<User> GetAsync(string userName, string password)
         {
-            var user = await this.userManager.FindAsync(userName, password);
-            var account = this.mapper.Map<UserEntity, Account>(user);
-            account.UserId = user.Id;
-            return account;
+            var entity = await this.userManager.FindAsync(userName, password);
+            return this.mapper.Map<UserEntity, User>(entity);
         }
     }
 }

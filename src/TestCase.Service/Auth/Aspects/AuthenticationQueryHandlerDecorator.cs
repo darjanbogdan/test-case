@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TestCase.Core.Auth;
 using TestCase.Core.Context;
 using TestCase.Core.Query;
-using TestCase.Service.Auth.Contracts;
 
 namespace TestCase.Service.Auth.Aspects
 {
@@ -39,7 +38,7 @@ namespace TestCase.Service.Auth.Aspects
         {
             if (!this.executionContext.UserInfo.IsAuthenticated)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("Not Authenticated");
             }
             return await this.queryHandler.HandleAsync(query);
         }

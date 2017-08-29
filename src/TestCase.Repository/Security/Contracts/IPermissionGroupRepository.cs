@@ -16,6 +16,6 @@ namespace TestCase.Repository.Security.Contracts
         /// Asynchronously gets all permission groups.
         /// </summary>
         /// <returns></returns>
-        Task<IList<PermissionGroup>> GetAllAsync();
+        Task<IEnumerable<PermissionGroup>> GetAllAsync();
     }
 }

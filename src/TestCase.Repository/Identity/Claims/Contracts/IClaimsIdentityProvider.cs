@@ -16,8 +16,8 @@ namespace TestCase.Repository.Identity.Claims.Contracts
         /// <summary>
         /// Asynchronously gets the claims identity.
         /// </summary>
-        /// <param name="account">The account.</param>
+        /// <param name="user">The user.</param>
         /// <returns></returns>
-        Task<ClaimsIdentity> GetAsync(Account account);
+        Task<ClaimsIdentity> GetAsync(User user);
     }
 }

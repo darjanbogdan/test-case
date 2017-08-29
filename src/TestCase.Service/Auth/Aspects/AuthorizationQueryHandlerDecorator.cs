@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Auth;
 using TestCase.Core.Query;
-using TestCase.Service.Auth.Contracts;
+using TestCase.Service.Security.Contracts;
 
 namespace TestCase.Service.Auth.Aspects
 {

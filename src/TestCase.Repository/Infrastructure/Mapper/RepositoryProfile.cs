@@ -21,12 +21,6 @@ namespace TestCase.Repository.Infrastructure.Mapper
         public RepositoryProfile() 
             : base(nameof(RepositoryProfile))
         {
-            var accountToUserMap = CreateMap<Account, UserEntity>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.UserId));
-
-            var userToAccountMap = CreateMap<UserEntity, Account>()
-               .ForMember(d => d.UserId, opt => opt.MapFrom(s => s.Id))
-               .ForMember(d => d.Password, opt => opt.MapFrom(s => s.PasswordHash));
         }
     }
 }

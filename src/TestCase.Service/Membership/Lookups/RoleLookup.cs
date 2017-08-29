@@ -42,7 +42,7 @@ namespace TestCase.Service.Membership.Lookups
         public async Task<Role> GetAsync(string abrv)
         {
             var roles = await this.GetAllAsync();
-            return roles.FirstOrDefault(r => r.Name == abrv);
+            return roles.FirstOrDefault(r => r.Name.Equals(abrv, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
