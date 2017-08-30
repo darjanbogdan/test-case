@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Auth\IAuthenticateModel.cs" />
     <Compile Include="Auth\IAuthorizeModel.cs" />
-    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheModel.cs" />
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Context\IExecutionContext.cs" />
     <Compile Include="Context\IUserInfo.cs" />

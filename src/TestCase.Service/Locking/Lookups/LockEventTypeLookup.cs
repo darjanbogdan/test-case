@@ -53,7 +53,7 @@ namespace TestCase.Service.Locking.Lookups
         public async Task<LockEventType> GetAsync(string abrv)
         {
             var eventTypes = await this.GetAllAsync();
-            return eventTypes.FirstOrDefault(r => r.Name.Equals(abrv, StringComparison.InvariantCultureIgnoreCase));
+            return eventTypes.FirstOrDefault(r => r.Abrv.Equals(abrv, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>

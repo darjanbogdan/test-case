@@ -53,6 +53,8 @@
     <Compile Include="Auth\Aspects\AuthenticationQueryHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationCommandHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
+    <Compile Include="Locking\Events\Aspects\PostLockEventCommandHandlerDecorator.cs" />
+    <Compile Include="Locking\Events\Contracts\IPostLockEventModel.cs" />
     <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusCommand.cs" />
     <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusCommandHandler.cs" />
     <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusObjectPermissionEvaluator.cs" />
@@ -125,8 +127,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Locking\Event\Create\" />
-    <Folder Include="Locking\Event\Find\" />
+    <Folder Include="Locking\Lock\Aspects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

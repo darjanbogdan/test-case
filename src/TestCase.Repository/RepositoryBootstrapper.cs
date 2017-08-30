@@ -58,6 +58,7 @@ namespace TestCase.Repository
             container.Register<IPermissionPolicyRepository, PermissionPolicyRepository>();
 
             container.Register<ILockRepository, LockRepository>();
+            container.Register<ILockEventRepository, LockEventRepository>();
         }
     }
 }

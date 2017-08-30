@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace TestCase.Core.Caching
 {
     /// <summary>
-    /// Cache interface.
+    /// Cache model interface.
     /// </summary>
-    public interface ICache
+    public interface ICacheModel
     {
         /// <summary>
         /// Gets the cache key.

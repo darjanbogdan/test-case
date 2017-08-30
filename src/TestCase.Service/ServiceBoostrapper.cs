@@ -11,6 +11,7 @@ using TestCase.Core.Query;
 using TestCase.Core.Validation;
 using TestCase.Service.Auth.Aspects;
 using TestCase.Service.Infrastructure.Lookups.Contracts;
+using TestCase.Service.Locking.Events.Aspects;
 using TestCase.Service.Security;
 using TestCase.Service.Security.Contracts;
 using TestCase.Service.Validation.Aspects;
@@ -92,12 +93,16 @@ namespace TestCase.Service
         {
             container.Register(typeof(ICommandHandler<>), assemblies);
 
+            // Post Lock Event
+            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(PostLockEventCommandHandlerDecorator<>));
+
             // Validation
             container.RegisterDecorator(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
             
             //Auth
             container.RegisterDecorator(typeof(ICommandHandler<>), typeof(AuthorizationCommandHandlerDecorator<>));
             container.RegisterDecorator(typeof(ICommandHandler<>), typeof(AuthenticationCommandHandlerDecorator<>));
+
         }
 
         private static void RegisterQueryHandlerPipeline(Container container, Assembly[] assemblies)

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Auth;
 using TestCase.Core.Validation;
+using TestCase.Service.Locking.Events.Contracts;
+using TestCase.Service.Locking.Maps;
 using TestCase.Service.Security.Maps;
 
 namespace TestCase.Service.Locking.Lock.CreateLockPermission
@@ -12,7 +14,7 @@ namespace TestCase.Service.Locking.Lock.CreateLockPermission
     /// <summary>
     /// Create lock permission command.
     /// </summary>
-    public class CreateLockPermissionCommand : IValidateModel, IAuthenticateModel, IAuthorizeModel
+    public class CreateLockPermissionCommand : IValidateModel, IAuthenticateModel, IAuthorizeModel, IPostLockEventModel
     {
         /// <summary>
         /// Gets or sets the role.
@@ -48,5 +50,15 @@ namespace TestCase.Service.Locking.Lock.CreateLockPermission
         /// Gets the permission.
         /// </summary>
         string IAuthorizeModel.Permission => PermissionMap.Create;
+
+        /// <summary>
+        /// Gets the lock event type.
+        /// </summary>
+        string IPostLockEventModel.LockEventType => LockEventTypeMap.AccessGranted;
+
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        Guid IPostLockEventModel.LockId => LockId;
     }
 }
