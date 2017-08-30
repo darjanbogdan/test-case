@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using TestCase.WebApi.Infrastructure.Filters;
 
 namespace TestCase
 {
@@ -26,6 +27,16 @@ namespace TestCase
             RegisterWebApiFilters(config);
         }
 
+        private static void RegisterWebApiRoutes(HttpConfiguration config)
+        {
+            config.MapHttpAttributeRoutes();
+        }
+
+        private static void RegisterWebApiFilters(HttpConfiguration config)
+        {
+            config.Filters.Add(new ExceptionFilter());
+        }
+
         private static void SetupContentNegotiation(HttpConfiguration config)
         {
             var jsonFormatter = createInitializedJsonFormatter();
@@ -39,7 +50,7 @@ namespace TestCase
 #if DEBUG
                 formatter.SerializerSettings.Formatting = Formatting.Indented;
 #else
-            jsonFormatter.SerializerSettings.Formatting = Formatting.None;
+                jsonFormatter.SerializerSettings.Formatting = Formatting.None;
 #endif
                 formatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
@@ -49,16 +60,6 @@ namespace TestCase
 
                 return formatter;
             }
-        }
-
-        private static void RegisterWebApiRoutes(HttpConfiguration config)
-        {
-            config.MapHttpAttributeRoutes();
-        }
-
-        private static void RegisterWebApiFilters(HttpConfiguration config)
-        {
-
         }
 
         private class JsonContentNegotiator : IContentNegotiator

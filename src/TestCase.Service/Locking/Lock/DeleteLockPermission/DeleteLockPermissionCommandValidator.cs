@@ -41,7 +41,7 @@ namespace TestCase.Service.Locking.Lock.DeleteLockPermission
             var existingPolicy = await this.lockRepository.GetLockPermissionAsync(model.LockPermissionId);
             if (existingPolicy == null)
             {
-                throw new ArgumentException("LockPermission doesn't exist");
+                throw new ValidationException("LockPermission doesn't exist");
             }
         }
     }

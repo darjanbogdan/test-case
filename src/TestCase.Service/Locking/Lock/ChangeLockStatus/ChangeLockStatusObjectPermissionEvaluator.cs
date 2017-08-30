@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestCase.Core.Auth;
 using TestCase.Core.Context;
 using TestCase.Repository.Locking.Contracts;
+using TestCase.Service.Infrastructure.Exceptions;
 using TestCase.Service.Membership.Lookups.Contracts;
 using TestCase.Service.Security.Contracts;
 using TestCase.Service.Security.Lookups.Contracts;
@@ -44,13 +45,13 @@ namespace TestCase.Service.Locking.Lock.ChangeLockStatus
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException">Lock doesn't exist.</exception>
+        /// <exception cref="NotFoundException">Lock doesn't exist.</exception>
         public async Task<bool> EvaluateAsync(ChangeLockStatusCommand model)
         {
             var existingLock = await this.lockRepository.GetLockAsync(model.LockId);
             if (existingLock == null)
             {
-                throw new ArgumentException("Lock doesn't exist."); //TODO: 404 should be thrown, custom exception implement
+                throw new NotFoundException("Lock");
             }
 
             var isOwner = this.executionContext.UserInfo.UserId.Equals(existingLock.UserId);

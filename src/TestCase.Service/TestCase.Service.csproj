@@ -53,6 +53,7 @@
     <Compile Include="Auth\Aspects\AuthenticationQueryHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationCommandHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
+    <Compile Include="Infrastructure\Exceptions\NotFoundException.cs" />
     <Compile Include="Locking\Events\Aspects\PostLockEventCommandHandlerDecorator.cs" />
     <Compile Include="Locking\Events\Contracts\IPostLockEventModel.cs" />
     <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusCommand.cs" />

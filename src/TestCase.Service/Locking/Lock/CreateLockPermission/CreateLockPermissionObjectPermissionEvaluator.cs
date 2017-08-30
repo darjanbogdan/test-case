@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Core.Context;
 using TestCase.Repository.Locking.Contracts;
+using TestCase.Service.Infrastructure.Exceptions;
 using TestCase.Service.Security.Contracts;
 
 namespace TestCase.Service.Locking.Lock.CreateLockPermission
@@ -41,7 +42,7 @@ namespace TestCase.Service.Locking.Lock.CreateLockPermission
             var existingLock = await this.lockRepository.GetLockAsync(model.LockId);
             if (existingLock == null)
             {
-                throw new ArgumentException("Lock doesn't exist"); //404
+                throw new NotFoundException("Lock");
             }
 
             var isOwner = this.executionContext.UserInfo.UserId.Equals(existingLock.UserId);

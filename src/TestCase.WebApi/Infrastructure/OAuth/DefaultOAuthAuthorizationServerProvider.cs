@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using TestCase.Core.Query;
 using TestCase.Service.Membership.Login;
+using FluentValidation;
 
 namespace TestCase.WebApi.Infrastructure.OAuth
 {
@@ -37,22 +38,22 @@ namespace TestCase.WebApi.Infrastructure.OAuth
                 UserName = context.UserName
             };
 
-            var result = await this.getUserClaimsHandlerFactory().HandleAsync(query);
-            if (result != null)
+            try
             {
-                var ticket = new AuthenticationTicket(result.Identity, null);
-                context.Validated(ticket);
-            }
-            else
-            {
-                if (String.IsNullOrEmpty(context.UserName) || String.IsNullOrEmpty(context.Password))
+                var result = await this.getUserClaimsHandlerFactory().HandleAsync(query);
+                if (result != null)
                 {
-                    context.SetError("invalid_request", "The request is missing required parameters user name or password.");
+                    var ticket = new AuthenticationTicket(result.Identity, null);
+                    context.Validated(ticket);
                 }
                 else
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                 }
+            }
+            catch (ValidationException)
+            {
+                context.SetError("invalid_request", "The request is missing required parameters user name or password.");
             }
         }
 
