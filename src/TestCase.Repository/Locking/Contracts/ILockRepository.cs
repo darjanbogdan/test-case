@@ -34,18 +34,18 @@ namespace TestCase.Repository.Locking.Contracts
         Task UpdateLockAsync(Lock @lock);
 
         /// <summary>
-        /// Asynchronously deletes the lock permission.
-        /// </summary>
-        /// <param name="lockPermissionId">The lock permission identifier.</param>
-        /// <returns></returns>
-        Task DeleteLockPermissionAsync(Guid lockPermissionId);
-
-        /// <summary>
         /// Asynchronously inserts the lock location.
         /// </summary>
         /// <param name="lockLocation">The lock location.</param>
         /// <returns></returns>
         Task InsertLockLocationAsync(LockLocation lockLocation);
+
+        /// <summary>
+        /// Asynchronously deletes the lock permission.
+        /// </summary>
+        /// <param name="lockPermissionId">The lock permission identifier.</param>
+        /// <returns></returns>
+        Task DeleteLockPermissionAsync(Guid lockPermissionId);
 
         /// <summary>
         /// Asynchronously gets the lock permission.

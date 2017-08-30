@@ -48,45 +48,30 @@ namespace TestCase.Service.Security.Lookups
         /// Asynchronously gets the create permission.
         /// </summary>
         /// <returns></returns>
-        public Task<Permission> GetCreatePermissionAsync()
-        {
-            return GetAsync(PermissionMap.Create);
-        }
-
+        public Task<Permission> GetCreatePermissionAsync() => GetAsync(PermissionMap.Create);
+        
         /// <summary>
         /// Asynchronously gets the delete permission.
         /// </summary>
         /// <returns></returns>
-        public Task<Permission> GetDeletePermissionAsync()
-        {
-            return GetAsync(PermissionMap.Delete);
-        }
+        public Task<Permission> GetDeletePermissionAsync() => GetAsync(PermissionMap.Delete);
 
         /// <summary>
         /// Asynchronously gets the update permission.
         /// </summary>
         /// <returns></returns>
-        public Task<Permission> GetFullPermissionAsync()
-        {
-            return GetAsync(PermissionMap.Full);
-        }
+        public Task<Permission> GetFullPermissionAsync() => GetAsync(PermissionMap.Full);
 
         /// <summary>
         /// Asynchronously gets the read permission.
         /// </summary>
         /// <returns></returns>
-        public Task<Permission> GetReadPermissionAsync()
-        {
-            return GetAsync(PermissionMap.Read);
-        }
+        public Task<Permission> GetReadPermissionAsync() => GetAsync(PermissionMap.Read);
 
         /// <summary>
         /// Asynchronously gets the update permission.
         /// </summary>
         /// <returns></returns>
-        public Task<Permission> GetUpdatePermissionAsync()
-        {
-            return GetAsync(PermissionMap.Update);
-        }
+        public Task<Permission> GetUpdatePermissionAsync() => GetAsync(PermissionMap.Update);
     }
 }
