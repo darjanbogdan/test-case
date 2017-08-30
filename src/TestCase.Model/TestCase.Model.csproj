@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Locking\Lock.cs" />
     <Compile Include="Locking\LockEvent.cs" />
     <Compile Include="Locking\LockEventType.cs" />
