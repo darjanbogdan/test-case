@@ -7,7 +7,7 @@ using TestCase.Core.Auth;
 using TestCase.Core.Validation;
 using TestCase.Service.Security.Maps;
 
-namespace TestCase.Service.Locking.Lock.Create
+namespace TestCase.Service.Locking.Lock.CreateLock
 {
     /// <summary>
     /// Create lock command

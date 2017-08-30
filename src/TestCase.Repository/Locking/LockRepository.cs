@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using LinqKit;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace TestCase.Repository.Locking
     {
         private readonly IGenericRepository<LockEntity> genericLockRepository;
         private readonly IGenericRepository<LockLocationEntity> genericLockLocationRepository;
+        private readonly IGenericRepository<LockPermissionPolicyEntity> genericLockPermissionPolicyRepository;
         private readonly IMapper mapper;
 
         /// <summary>
@@ -26,15 +29,18 @@ namespace TestCase.Repository.Locking
         /// </summary>
         /// <param name="genericLockRepository">The generic lock repository.</param>
         /// <param name="genericLockLocationRepository">The generic lock location repository.</param>
+        /// <param name="genericLockPermissionPolicyRepository">The generic lock permission policy repository.</param>
         /// <param name="mapper">The mapper.</param>
         public LockRepository(
             IGenericRepository<LockEntity> genericLockRepository,
             IGenericRepository<LockLocationEntity> genericLockLocationRepository,
+            IGenericRepository<LockPermissionPolicyEntity> genericLockPermissionPolicyRepository,
             IMapper mapper)
         {
             
             this.genericLockRepository = genericLockRepository;
             this.genericLockLocationRepository = genericLockLocationRepository;
+            this.genericLockPermissionPolicyRepository = genericLockPermissionPolicyRepository;
             this.mapper = mapper;
         }
 
@@ -76,6 +82,50 @@ namespace TestCase.Repository.Locking
         }
 
         /// <summary>
+        /// Asynchronously inserts the lock permission policy.
+        /// </summary>
+        /// <param name="lockPermissionPolicy">The lock permission policy.</param>
+        /// <returns></returns>
+        public Task InsertLockPermissionPolicyAsync(LockPermissionPolicy lockPermissionPolicy)
+        {
+            if (lockPermissionPolicy == null) throw new ArgumentNullException(nameof(lockPermissionPolicy));
+
+            var entity = this.mapper.Map<LockPermissionPolicyEntity>(lockPermissionPolicy);
+            try
+            {
+                return this.genericLockPermissionPolicyRepository.InsertAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Asynchronously finds the lock permission policies.
+        /// </summary>
+        /// <param name="lockId">The lock identifier.</param>
+        /// <param name="permissionId">The permission identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="roleIds">The role ids.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<LockPermissionPolicy>> FindLockPermissionPoliciesAsync(Guid lockId, Guid permissionId, Guid userId, params Guid[] roleIds)
+        {
+            var query = await this.genericLockPermissionPolicyRepository.FindAsync();
+
+            var predicate = PredicateBuilder.New<LockPermissionPolicyEntity>(pp => pp.LockId == lockId && pp.PermissionId == permissionId);
+
+            var innerPredicate = PredicateBuilder.New<LockPermissionPolicyEntity>(pp => pp.UserId.HasValue && pp.UserId.Value.Equals(userId));
+            innerPredicate.Or(pp => pp.RoleId.HasValue && roleIds.Contains(pp.RoleId.Value));
+
+            predicate.And(innerPredicate);
+
+            var policies = await query.Where(predicate).ToListAsync();
+            return this.mapper.Map<IEnumerable<LockPermissionPolicy>>(policies);
+        }
+
+        /// <summary>
         /// Asynchronously updates the lock.
         /// </summary>
         /// <param name="lock">The lock.</param>
@@ -86,6 +136,27 @@ namespace TestCase.Repository.Locking
 
             var entity = this.mapper.Map<LockEntity>(@lock);
             return this.genericLockRepository.UpdateAsync(entity);
+        }
+
+        /// <summary>
+        /// Asynchronously deletes the lock permission.
+        /// </summary>
+        /// <param name="lockPermissionId">The lock permission identifier.</param>
+        /// <returns></returns>
+        public Task DeleteLockPermissionAsync(Guid lockPermissionId)
+        {
+            return this.genericLockPermissionPolicyRepository.DeleteAsync(lockPermissionId);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the lock permission.
+        /// </summary>
+        /// <param name="lockPermissionId">The lock permission identifier.</param>
+        /// <returns></returns>
+        public async Task<LockPermissionPolicy> GetLockPermissionAsync(Guid lockPermissionId)
+        {
+            var entity = await this.genericLockPermissionPolicyRepository.GetAsync(lockPermissionId);
+            return this.mapper.Map<LockPermissionPolicyEntity, LockPermissionPolicy>(entity);
         }
     }
 }

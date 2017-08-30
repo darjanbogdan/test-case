@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCase.Model.Locking;
+using TestCase.Service.Locking.Lock.CreateLockPermission;
 
 namespace TestCase.Service.Infrastructure.Mapper
 {
@@ -19,6 +21,8 @@ namespace TestCase.Service.Infrastructure.Mapper
         public ServiceProfile() 
             : base(nameof(ServiceProfile))
         {
+            CreateMap<CreateLockPermissionCommand, LockPermissionPolicy>()
+                .ForMember(d => d.Permission, opt => opt.Ignore());
         }
     }
 }

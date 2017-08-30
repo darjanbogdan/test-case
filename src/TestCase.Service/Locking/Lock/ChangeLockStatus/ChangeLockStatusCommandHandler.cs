@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 using TestCase.Core.Command;
 using TestCase.Repository.Locking.Contracts;
 
-namespace TestCase.Service.Locking.Lock.ChangeStatus
+namespace TestCase.Service.Locking.Lock.ChangeLockStatus
 {
     /// <summary>
-    /// Change status command handler.
+    /// Change lock status command handler.
     /// </summary>
     /// <seealso cref="TestCase.Core.Command.ICommandHandler{TestCase.Service.Locking.Lock.ChangeStatus.ChangeStatusCommand}" />
-    public class ChangeStatusCommandHandler : ICommandHandler<ChangeStatusCommand>
+    public class ChangeLockStatusCommandHandler : ICommandHandler<ChangeLockStatusCommand>
     {
         private readonly ILockRepository lockRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChangeStatusCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="ChangeLockStatusCommandHandler"/> class.
         /// </summary>
         /// <param name="lockRepository">The lock repository.</param>
-        public ChangeStatusCommandHandler(ILockRepository lockRepository)
+        public ChangeLockStatusCommandHandler(ILockRepository lockRepository)
         {
             this.lockRepository = lockRepository;
         }
@@ -31,7 +31,7 @@ namespace TestCase.Service.Locking.Lock.ChangeStatus
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        public async Task HandleAsync(ChangeStatusCommand command)
+        public async Task HandleAsync(ChangeLockStatusCommand command)
         {
             var entity = await this.lockRepository.GetLockAsync(command.LockId);
             entity.Locked = command.Locked;

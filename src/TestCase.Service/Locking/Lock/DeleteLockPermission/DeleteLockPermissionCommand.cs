@@ -7,22 +7,27 @@ using TestCase.Core.Auth;
 using TestCase.Core.Validation;
 using TestCase.Service.Security.Maps;
 
-namespace TestCase.Service.Locking.Lock.ChangeStatus
+namespace TestCase.Service.Locking.Lock.DeleteLockPermission
 {
     /// <summary>
-    /// Change stauts command.
+    /// Delete lock permission command.
     /// </summary>
-    public class ChangeStatusCommand : IAuthenticateModel, IAuthorizeModel
+    public class DeleteLockPermissionCommand : IValidateModel, IAuthenticateModel, IAuthorizeModel
     {
+        /// <summary>
+        /// Gets or sets the lock identifier.
+        /// </summary>
+        public Guid LockPermissionId { get; set; }
+
         /// <summary>
         /// Gets or sets the lock identifier.
         /// </summary>
         public Guid LockId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="ChangeStatusCommand"/> is locked.
+        /// Gets the name of the model.
         /// </summary>
-        public bool Locked { get; set; }
+        string IValidateModel.Name => nameof(DeleteLockPermissionCommand);
 
         /// <summary>
         /// Gets the permission group.

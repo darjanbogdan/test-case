@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Service.Validation;
 
-namespace TestCase.Service.Locking.Lock.Get
+namespace TestCase.Service.Locking.Lock.GetLock
 {
     /// <summary>
     /// Get lock query validator.

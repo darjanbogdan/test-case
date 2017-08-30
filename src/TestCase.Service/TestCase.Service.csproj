@@ -53,16 +53,24 @@
     <Compile Include="Auth\Aspects\AuthenticationQueryHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationCommandHandlerDecorator.cs" />
     <Compile Include="Auth\Aspects\AuthorizationQueryHandlerDecorator.cs" />
-    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommand.cs" />
-    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusCommandHandler.cs" />
-    <Compile Include="Locking\Lock\ChangeStatus\ChangeStatusObjectPermissionEvaluator.cs" />
-    <Compile Include="Locking\Lock\Create\CreateLockCommand.cs" />
-    <Compile Include="Locking\Lock\Create\CreateLockCommandHandler.cs" />
-    <Compile Include="Locking\Lock\Create\CreateLockCommandValidator.cs" />
-    <Compile Include="Locking\Lock\Get\GetLockQuery.cs" />
-    <Compile Include="Locking\Lock\Get\GetLockQueryHandler.cs" />
-    <Compile Include="Locking\Lock\Get\GetLockQueryValidator.cs" />
-    <Compile Include="Locking\Lock\Get\GetLockResult.cs" />
+    <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusCommand.cs" />
+    <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusCommandHandler.cs" />
+    <Compile Include="Locking\Lock\ChangeLockStatus\ChangeLockStatusObjectPermissionEvaluator.cs" />
+    <Compile Include="Locking\Lock\CreateLockPermission\CreateLockPermissionCommand.cs" />
+    <Compile Include="Locking\Lock\CreateLockPermission\CreateLockPermissionCommandHandler.cs" />
+    <Compile Include="Locking\Lock\CreateLockPermission\CreateLockPermissionCommandValidator.cs" />
+    <Compile Include="Locking\Lock\CreateLockPermission\CreateLockPermissionObjectPermissionEvaluator.cs" />
+    <Compile Include="Locking\Lock\CreateLock\CreateLockCommand.cs" />
+    <Compile Include="Locking\Lock\CreateLock\CreateLockCommandHandler.cs" />
+    <Compile Include="Locking\Lock\CreateLock\CreateLockCommandValidator.cs" />
+    <Compile Include="Locking\Lock\DeleteLockPermission\DeleteLockPermissionCommand.cs" />
+    <Compile Include="Locking\Lock\DeleteLockPermission\DeleteLockPermissionCommandHandler.cs" />
+    <Compile Include="Locking\Lock\DeleteLockPermission\DeleteLockPermissionCommandValidator.cs" />
+    <Compile Include="Locking\Lock\DeleteLockPermission\DeleteLockPermissionObjectPermissionEvaluator.cs" />
+    <Compile Include="Locking\Lock\GetLock\GetLockQuery.cs" />
+    <Compile Include="Locking\Lock\GetLock\GetLockQueryHandler.cs" />
+    <Compile Include="Locking\Lock\GetLock\GetLockQueryValidator.cs" />
+    <Compile Include="Locking\Lock\GetLock\GetLockResult.cs" />
     <Compile Include="Security\Contracts\IObjectPermissionEvaluator.cs" />
     <Compile Include="Security\GroupPermissionEvaluator.cs" />
     <Compile Include="Security\Contracts\IGroupPermissionEvaluator.cs" />
@@ -115,8 +123,6 @@
   <ItemGroup>
     <Folder Include="Locking\Event\Create\" />
     <Folder Include="Locking\Event\Find\" />
-    <Folder Include="Locking\Lock\Delete\" />
-    <Folder Include="Locking\Lock\Find\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,6 +18,7 @@ namespace TestCase.Service.Auth.Aspects
     public class AuthorizationQueryHandlerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>, IAuthorizeModel
     {
         private readonly IGroupPermissionEvaluator groupPermissionEvaluator;
+        private readonly IObjectPermissionEvaluator<TQuery> objectPermissionEvaluator;
         private readonly IQueryHandler<TQuery, TResult> queryHandler;
 
         /// <summary>
@@ -25,9 +26,13 @@ namespace TestCase.Service.Auth.Aspects
         /// </summary>
         /// <param name="groupPermissionEvaluator">The group permission evaluator.</param>
         /// <param name="queryHandler">The query handler.</param>
-        public AuthorizationQueryHandlerDecorator(IGroupPermissionEvaluator groupPermissionEvaluator, IQueryHandler<TQuery, TResult> queryHandler)
+        public AuthorizationQueryHandlerDecorator(
+            IGroupPermissionEvaluator groupPermissionEvaluator, 
+            IObjectPermissionEvaluator<TQuery> objectPermissionEvaluator,
+            IQueryHandler<TQuery, TResult> queryHandler)
         {
             this.groupPermissionEvaluator = groupPermissionEvaluator;
+            this.objectPermissionEvaluator = objectPermissionEvaluator;
             this.queryHandler = queryHandler;
         }
 
@@ -36,11 +41,17 @@ namespace TestCase.Service.Auth.Aspects
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<TResult> HandleAsync(TQuery query)
         {
-            await this.groupPermissionEvaluator.EvaluateAsync(query);
-
+            var hasObjectPermissions = await this.objectPermissionEvaluator.EvaluateAsync(query);
+            if (!hasObjectPermissions)
+            {
+                var hasGroupPermissions = await this.groupPermissionEvaluator.EvaluateAsync(query);
+                if (!hasGroupPermissions)
+                {
+                    throw new UnauthorizedAccessException("Not Authorized");
+                }
+            }
             return await this.queryHandler.HandleAsync(query);
         }
     }

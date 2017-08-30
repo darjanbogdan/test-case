@@ -8,7 +8,7 @@ using TestCase.Core.Command;
 using TestCase.Model.Locking;
 using TestCase.Repository.Locking.Contracts;
 
-namespace TestCase.Service.Locking.Lock.Create
+namespace TestCase.Service.Locking.Lock.CreateLock
 {
     /// <summary>
     /// Create lock command handler.

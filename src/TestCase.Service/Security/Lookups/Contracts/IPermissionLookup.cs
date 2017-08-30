@@ -14,5 +14,34 @@ namespace TestCase.Service.Security.Lookups.Contracts
     /// <seealso cref="TestCase.Service.Infrastructure.Lookups.Contracts.ILookup{TestCase.Model.Security.Permission}" />
     public interface IPermissionLookup : ILookup<Permission>
     {
+        /// <summary>
+        /// Asynchronously gets the create permission.
+        /// </summary>
+        /// <returns></returns>
+        Task<Permission> GetCreatePermissionAsync();
+
+        /// <summary>
+        /// Asynchronously gets the read permission.
+        /// </summary>
+        /// <returns></returns>
+        Task<Permission> GetReadPermissionAsync();
+
+        /// <summary>
+        /// Asynchronously gets the update permission.
+        /// </summary>
+        /// <returns></returns>
+        Task<Permission> GetUpdatePermissionAsync();
+
+        /// <summary>
+        /// Asynchronously gets the delete permission.
+        /// </summary>
+        /// <returns></returns>
+        Task<Permission> GetDeletePermissionAsync();
+
+        /// <summary>
+        /// Asynchronously gets the update permission.
+        /// </summary>
+        /// <returns></returns>
+        Task<Permission> GetFullPermissionAsync();
     }
 }

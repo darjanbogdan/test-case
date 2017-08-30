@@ -9,7 +9,7 @@ using TestCase.Service.Validation;
 using FluentValidation.Results;
 using TestCase.Repository.Locking.Contracts;
 
-namespace TestCase.Service.Locking.Lock.Create
+namespace TestCase.Service.Locking.Lock.CreateLock
 {
     /// <summary>
     /// Create lock command validator

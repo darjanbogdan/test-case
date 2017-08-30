@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestCase.Model.Security;
 using TestCase.Repository.Security.Contracts;
 using TestCase.Service.Security.Lookups.Contracts;
+using TestCase.Service.Security.Maps;
 
 namespace TestCase.Service.Security.Lookups
 {
@@ -41,6 +42,51 @@ namespace TestCase.Service.Security.Lookups
         {
             var permissions = await this.GetAllAsync();
             return permissions.FirstOrDefault(p => p.Abrv.Equals(abrv, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /// <summary>
+        /// Asynchronously gets the create permission.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Permission> GetCreatePermissionAsync()
+        {
+            return GetAsync(PermissionMap.Create);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the delete permission.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Permission> GetDeletePermissionAsync()
+        {
+            return GetAsync(PermissionMap.Delete);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the update permission.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Permission> GetFullPermissionAsync()
+        {
+            return GetAsync(PermissionMap.Full);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the read permission.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Permission> GetReadPermissionAsync()
+        {
+            return GetAsync(PermissionMap.Read);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the update permission.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Permission> GetUpdatePermissionAsync()
+        {
+            return GetAsync(PermissionMap.Update);
         }
     }
 }

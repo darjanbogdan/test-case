@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCase.Service.Locking.Lock.Get
+namespace TestCase.Service.Locking.Lock.GetLock
 {
     /// <summary>
     /// Get lock result.

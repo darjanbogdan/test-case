@@ -23,6 +23,13 @@ namespace TestCase.Repository.Membership.Contracts
         /// Asynchronously gets the user.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
+        /// <returns></returns>
+        Task<User> GetAsync(string userName);
+
+        /// <summary>
+        /// Asynchronously gets the user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
         Task<User> GetAsync(string userName, string password);

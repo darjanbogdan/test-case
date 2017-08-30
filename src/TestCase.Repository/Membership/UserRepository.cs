@@ -84,5 +84,16 @@ namespace TestCase.Repository.Membership
             var entity = await this.userManager.FindAsync(userName, password);
             return this.mapper.Map<UserEntity, User>(entity);
         }
+
+        /// <summary>
+        /// Asynchronously gets the user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns></returns>
+        public async Task<User> GetAsync(string userName)
+        {
+            var entity = await this.userManager.FindByNameAsync(userName);
+            return this.mapper.Map<UserEntity, User>(entity);
+        }
     }
 }

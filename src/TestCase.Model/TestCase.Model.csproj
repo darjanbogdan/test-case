@@ -43,8 +43,8 @@
     <Compile Include="Locking\Lock.cs" />
     <Compile Include="Locking\LockEvent.cs" />
     <Compile Include="Locking\LockEventType.cs" />
-    <Compile Include="Locking\LockLocationEntity.cs" />
-    <Compile Include="Locking\LockPermissionPolicyEntity.cs" />
+    <Compile Include="Locking\LockLocation.cs" />
+    <Compile Include="Locking\LockPermissionPolicy.cs" />
     <Compile Include="Membership\User.cs" />
     <Compile Include="Membership\Role.cs" />
     <Compile Include="Security\Permission.cs" />

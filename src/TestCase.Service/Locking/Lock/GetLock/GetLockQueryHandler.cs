@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TestCase.Core.Query;
 using TestCase.Repository.Locking.Contracts;
 
-namespace TestCase.Service.Locking.Lock.Get
+namespace TestCase.Service.Locking.Lock.GetLock
 {
     /// <summary>
     /// Get lock query handler.

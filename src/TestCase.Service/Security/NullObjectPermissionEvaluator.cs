@@ -12,7 +12,7 @@ namespace TestCase.Service.Security
     /// Null object permission evaluator.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class NullObjectPermissionEvaluator<T> : IObjectPermissionEvaluator<T> where T: IAuthorizeModel
+    public class NullObjectPermissionEvaluator<T> : IObjectPermissionEvaluator<T>
     {
         /// <summary>
         /// Asynchronously evaluates the object permissions for given model.

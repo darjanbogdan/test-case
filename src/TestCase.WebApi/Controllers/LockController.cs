@@ -10,9 +10,11 @@ using System.Web.Http;
 using TestCase.Core.Command;
 using TestCase.Core.Context;
 using TestCase.Core.Query;
-using TestCase.Service.Locking.Lock.ChangeStatus;
-using TestCase.Service.Locking.Lock.Create;
-using TestCase.Service.Locking.Lock.Get;
+using TestCase.Service.Locking.Lock.ChangeLockStatus;
+using TestCase.Service.Locking.Lock.CreateLock;
+using TestCase.Service.Locking.Lock.CreateLockPermission;
+using TestCase.Service.Locking.Lock.DeleteLockPermission;
+using TestCase.Service.Locking.Lock.GetLock;
 
 namespace TestCase.WebApi.Controllers
 {
@@ -24,8 +26,9 @@ namespace TestCase.WebApi.Controllers
     public class LockController : ApiController
     {
         private readonly ICommandHandler<CreateLockCommand> createLockHandler;
-        private readonly ICommandHandler<ChangeStatusCommand> changeStatusHandler;
-        private readonly IQueryHandler<GetLockQuery, GetLockResult> getLockHandler;
+        private readonly ICommandHandler<ChangeLockStatusCommand> changeLockStatusHandler;
+        private readonly ICommandHandler<CreateLockPermissionCommand> createLockPermissionHandler;
+        private readonly ICommandHandler<DeleteLockPermissionCommand> deleteLockPermissionHandler;
         private readonly IExecutionContext executionContext;
         private readonly IMapper mapper;
 
@@ -33,20 +36,22 @@ namespace TestCase.WebApi.Controllers
         /// Initializes a new instance of the <see cref="LockController" /> class.
         /// </summary>
         /// <param name="createLockHandler">The create lock handler.</param>
-        /// <param name="changeStatusHandler">The change status handler.</param>
+        /// <param name="changeLockStatusHandler">The change status handler.</param>
         /// <param name="getLockHandler">The get lock handler.</param>
         /// <param name="executionContext">The execution context.</param>
         /// <param name="mapper">The mapper.</param>
         public LockController(
             ICommandHandler<CreateLockCommand> createLockHandler,
-            ICommandHandler<ChangeStatusCommand> changeStatusHandler,
-            IQueryHandler<GetLockQuery, GetLockResult> getLockHandler,
+            ICommandHandler<ChangeLockStatusCommand> changeLockStatusHandler,
+            ICommandHandler<CreateLockPermissionCommand> createLockPermissionHandler,
+            ICommandHandler<DeleteLockPermissionCommand> deleteLockPermissionHandler,
             IExecutionContext executionContext,
             IMapper mapper)
         {
             this.createLockHandler = createLockHandler;
-            this.changeStatusHandler = changeStatusHandler;
-            this.getLockHandler = getLockHandler;
+            this.changeLockStatusHandler = changeLockStatusHandler;
+            this.createLockPermissionHandler = createLockPermissionHandler;
+            this.deleteLockPermissionHandler = deleteLockPermissionHandler;
             this.executionContext = executionContext;
             this.mapper = mapper;
         }
@@ -61,7 +66,10 @@ namespace TestCase.WebApi.Controllers
         public async Task<HttpResponseMessage> CreateAsync(Lock @lock)
         {
             var command = this.mapper.Map<CreateLockCommand>(@lock);
-            command.UserId = this.executionContext.UserInfo.UserId;
+            if (command != null)
+            {
+                command.UserId = this.executionContext.UserInfo.UserId;
+            }
 
             await this.createLockHandler.HandleAsync(command);
 
@@ -77,19 +85,13 @@ namespace TestCase.WebApi.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> LockAsync(Guid lockId)
         {
-            //var existingLock = await this.getLockHandler.HandleAsync(new GetLockQuery() { LockId = lockId });
-            //if (existingLock == null)
-            //{
-            //    return Request.CreateResponse(HttpStatusCode.NotFound);
-            //}
-
-            var command = new ChangeStatusCommand
+            var command = new ChangeLockStatusCommand
             {
                 Locked = true,
                 LockId = lockId
             };
 
-            await this.changeStatusHandler.HandleAsync(command);
+            await this.changeLockStatusHandler.HandleAsync(command);
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
@@ -103,15 +105,55 @@ namespace TestCase.WebApi.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> UnlockAsync(Guid lockId)
         {
-            var command = new ChangeStatusCommand
+            var command = new ChangeLockStatusCommand
             {
                 Locked = false,
                 LockId = lockId
             };
 
-            await this.changeStatusHandler.HandleAsync(command);
+            await this.changeLockStatusHandler.HandleAsync(command);
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Asynchronously creates the lock permission.
+        /// </summary>
+        /// <param name="lockId">The lock identifier.</param>
+        /// <param name="lockPermission">The lock permission.</param>
+        /// <returns></returns>
+        [Route("{lockId}/permissions")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> CreatePermissionAsync(Guid lockId, LockPermission lockPermission)
+        {
+            var command = this.mapper.Map<CreateLockPermissionCommand>(lockPermission);
+            if (command != null)
+            {
+                command.LockId = lockId;
+            }
+            await this.createLockPermissionHandler.HandleAsync(command);
+
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        /// <summary>
+        /// Asynchronously deletes the lock permission.
+        /// </summary>
+        /// <param name="lockId">The lock identifier.</param>
+        /// <param name="lockPermission">The lock permission.</param>
+        /// <returns></returns>
+        [Route("{lockId}/permissions/{permissionId}")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> DeletePermissionAsync(Guid lockId, Guid permissionId)
+        {
+            var command = new DeleteLockPermissionCommand
+            {
+                LockId = lockId,
+                LockPermissionId = permissionId
+            };
+            await this.deleteLockPermissionHandler.HandleAsync(command);
+
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         /// <summary>
@@ -138,6 +180,24 @@ namespace TestCase.WebApi.Controllers
             /// Gets or sets the city.
             /// </summary>
             public string City { get; set; }
+        }
+
+        public class LockPermission
+        {
+            /// <summary>
+            /// Gets the role.
+            /// </summary>
+            public string Role { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name of the user.
+            /// </summary>
+            public string UserName { get; set; }
+
+            /// <summary>
+            /// Gets the permission.
+            /// </summary>
+            public string Permission { get; set; }
         }
     }
 }
