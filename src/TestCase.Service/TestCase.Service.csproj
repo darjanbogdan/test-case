@@ -69,8 +69,12 @@
     <Compile Include="Locking\Lock\DeleteLockPermission\DeleteLockPermissionObjectPermissionEvaluator.cs" />
     <Compile Include="Locking\Lock\GetLock\GetLockQuery.cs" />
     <Compile Include="Locking\Lock\GetLock\GetLockQueryHandler.cs" />
+    <Compile Include="Locking\Lock\GetLock\GetLockQueryObjectPermissionEvaluator.cs" />
     <Compile Include="Locking\Lock\GetLock\GetLockQueryValidator.cs" />
     <Compile Include="Locking\Lock\GetLock\GetLockResult.cs" />
+    <Compile Include="Locking\Lookups\Contract\ILockEventTypeLookup.cs" />
+    <Compile Include="Locking\Lookups\LockEventTypeLookup.cs" />
+    <Compile Include="Locking\Maps\LockEventTypeMap.cs" />
     <Compile Include="Security\Contracts\IObjectPermissionEvaluator.cs" />
     <Compile Include="Security\GroupPermissionEvaluator.cs" />
     <Compile Include="Security\Contracts\IGroupPermissionEvaluator.cs" />

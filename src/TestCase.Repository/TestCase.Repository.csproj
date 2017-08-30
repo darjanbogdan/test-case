@@ -72,7 +72,9 @@
     <Compile Include="Identity\Security\Contracts\IIdentityUserValidatorFactory.cs" />
     <Compile Include="Identity\Security\DefaultUserValidatorFactory.cs" />
     <Compile Include="Infrastructure\Mapper\RepositoryProfile.cs" />
+    <Compile Include="Locking\Contracts\ILockEventRepository.cs" />
     <Compile Include="Locking\Contracts\ILockRepository.cs" />
+    <Compile Include="Locking\LockEventRepository.cs" />
     <Compile Include="Locking\LockRepository.cs" />
     <Compile Include="Membership\UserRepository.cs" />
     <Compile Include="Membership\Contracts\IUserRepository.cs" />
