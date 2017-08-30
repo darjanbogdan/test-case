@@ -29,6 +29,7 @@ namespace TestCase.WebApi.Controllers
         private readonly ICommandHandler<ChangeLockStatusCommand> changeLockStatusHandler;
         private readonly ICommandHandler<CreateLockPermissionCommand> createLockPermissionHandler;
         private readonly ICommandHandler<DeleteLockPermissionCommand> deleteLockPermissionHandler;
+        private readonly IQueryHandler<GetLockQuery, GetLockResult> getLockHandler;
         private readonly IExecutionContext executionContext;
         private readonly IMapper mapper;
 
@@ -45,6 +46,7 @@ namespace TestCase.WebApi.Controllers
             ICommandHandler<ChangeLockStatusCommand> changeLockStatusHandler,
             ICommandHandler<CreateLockPermissionCommand> createLockPermissionHandler,
             ICommandHandler<DeleteLockPermissionCommand> deleteLockPermissionHandler,
+            IQueryHandler<GetLockQuery, GetLockResult> getLockHandler,
             IExecutionContext executionContext,
             IMapper mapper)
         {
@@ -52,6 +54,7 @@ namespace TestCase.WebApi.Controllers
             this.changeLockStatusHandler = changeLockStatusHandler;
             this.createLockPermissionHandler = createLockPermissionHandler;
             this.deleteLockPermissionHandler = deleteLockPermissionHandler;
+            this.getLockHandler = getLockHandler;
             this.executionContext = executionContext;
             this.mapper = mapper;
         }
@@ -74,6 +77,25 @@ namespace TestCase.WebApi.Controllers
             await this.createLockHandler.HandleAsync(command);
 
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        /// <summary>
+        /// Asynchronously gets the lock.
+        /// </summary>
+        /// <param name="lockId">The lock identifier.</param>
+        /// <returns></returns>
+        [Route("{lockId}")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAsync(Guid lockId)
+        {
+            var query = new GetLockQuery
+            {
+                LockId = lockId
+            };
+
+            var result = await this.getLockHandler.HandleAsync(query);
+
+            return Request.CreateResponse(HttpStatusCode.OK, this.mapper.Map<Lock>(result.Lock));
         }
 
         /// <summary>
@@ -162,6 +184,11 @@ namespace TestCase.WebApi.Controllers
         public class Lock
         {
             /// <summary>
+            /// Gets or sets the identifier.
+            /// </summary>
+            public Guid Id { get; set; }
+
+            /// <summary>
             /// Gets or sets the alias.
             /// </summary>
             public string Alias { get; set; }
@@ -180,10 +207,40 @@ namespace TestCase.WebApi.Controllers
             /// Gets or sets the city.
             /// </summary>
             public string City { get; set; }
+
+            /// <summary>
+            /// Gets or sets the events.
+            /// </summary>
+            public IEnumerable<LockEvent> Events { get; set; }
         }
 
+
+        /// <summary>
+        /// Lock event REST model.
+        /// </summary>
+        public class LockEvent
+        {
+            /// <summary>
+            /// Gets or sets the date occured.
+            /// </summary>
+            public DateTime DateOccured { get; set; }
+
+            /// <summary>
+            /// Gets the lock event type.
+            /// </summary>
+            public string LockEventType { get; set; }
+        }
+
+        /// <summary>
+        /// Lock permission REST model.
+        /// </summary>
         public class LockPermission
         {
+            /// <summary>
+            /// Gets or sets the identifier.
+            /// </summary>
+            public Guid Id { get; set; }
+
             /// <summary>
             /// Gets the role.
             /// </summary>

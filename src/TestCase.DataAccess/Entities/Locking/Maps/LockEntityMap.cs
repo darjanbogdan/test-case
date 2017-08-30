@@ -36,6 +36,10 @@ namespace TestCase.DataAccess.Entities.Locking.Maps
 
             Property(e => e.Locked)
                 .IsRequired();
+
+            HasMany(e => e.Events)
+                .WithRequired(ev => ev.Lock)
+                .HasForeignKey(ev => ev.LockId);
         }
     }
 }

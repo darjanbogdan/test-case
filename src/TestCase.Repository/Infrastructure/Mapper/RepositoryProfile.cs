@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCase.DataAccess.Entities.Identity;
+using TestCase.DataAccess.Entities.Locking;
+using TestCase.Model.Locking;
 using TestCase.Model.Membership;
 
 namespace TestCase.Repository.Infrastructure.Mapper
@@ -21,6 +23,11 @@ namespace TestCase.Repository.Infrastructure.Mapper
         public RepositoryProfile() 
             : base(nameof(RepositoryProfile))
         {
+            CreateMap<LockLocationEntity, LockLocation>()
+                .ForMember(d => d.Locks, opt => opt.Ignore());
+
+            CreateMap<LockEventEntity, LockEvent>()
+                .ForMember(d => d.Lock, opt => opt.Ignore());
         }
     }
 }

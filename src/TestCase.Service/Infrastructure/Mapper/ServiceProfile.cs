@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCase.Model.Locking;
 using TestCase.Service.Locking.Lock.CreateLockPermission;
+using TestCase.Service.Locking.Lock.GetLock;
 
 namespace TestCase.Service.Infrastructure.Mapper
 {

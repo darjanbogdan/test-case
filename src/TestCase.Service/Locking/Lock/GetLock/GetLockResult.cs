@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCase.Model.Locking;
 
 namespace TestCase.Service.Locking.Lock.GetLock
 {
@@ -12,28 +13,8 @@ namespace TestCase.Service.Locking.Lock.GetLock
     public class GetLockResult
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the lock.
         /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets the user identifier.
-        /// </summary>
-        public Guid UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the alias.
-        /// </summary>
-        public string Alias { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="GetLockQuery"/> is locked.
-        /// </summary>
-        public bool Locked { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location identifier.
-        /// </summary>
-        public Guid LocationId { get; set; }
+        public Model.Locking.Lock Lock { get; set; }
     }
 }

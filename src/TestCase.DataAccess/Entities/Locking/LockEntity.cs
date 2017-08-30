@@ -15,6 +15,14 @@ namespace TestCase.DataAccess.Entities.Locking
     public class LockEntity : IEntity
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="LockEntity"/> class.
+        /// </summary>
+        public LockEntity()
+        {
+            Events = new HashSet<LockEventEntity>();
+        }
+
+        /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         public Guid Id { get; set; }
@@ -58,5 +66,10 @@ namespace TestCase.DataAccess.Entities.Locking
         /// Gets or sets the location.
         /// </summary>
         public LockLocationEntity Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the events.
+        /// </summary>
+        public ICollection<LockEventEntity> Events { get; set; }
     }
 }

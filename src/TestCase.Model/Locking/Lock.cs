@@ -56,5 +56,10 @@ namespace TestCase.Model.Locking
         /// Gets or sets the location.
         /// </summary>
         public LockLocation Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the events.
+        /// </summary>
+        public IEnumerable<LockEvent> Events { get; set; }
     }
 }

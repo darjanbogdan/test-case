@@ -51,8 +51,17 @@ namespace TestCase.Repository.Locking
         /// <returns></returns>
         public async Task<Lock> GetLockAsync(Guid lockId)
         {
-            var @lock = await this.genericLockRepository.GetAsync(lockId);
-            return this.mapper.Map<Lock>(@lock);
+            var query = await this.genericLockRepository.FindAsync();
+
+            query = query
+                .Include(p => p.Location)
+                .Include(p => p.Events)
+                .Include(p => p.Events.Select(e => e.LockEventType));
+
+            query = query.Where(p => p.Id == lockId);
+
+            var entity = await query.SingleOrDefaultAsync();
+            return this.mapper.Map<Lock>(entity);
         }
 
         /// <summary>

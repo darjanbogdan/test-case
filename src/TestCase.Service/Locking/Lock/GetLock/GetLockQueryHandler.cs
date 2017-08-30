@@ -16,17 +16,15 @@ namespace TestCase.Service.Locking.Lock.GetLock
     public class GetLockQueryHandler : IQueryHandler<GetLockQuery, GetLockResult>
     {
         private readonly ILockRepository lockRepository;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetLockQueryHandler" /> class.
         /// </summary>
         /// <param name="lockRepository">The lock repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public GetLockQueryHandler(ILockRepository lockRepository, IMapper mapper)
+        public GetLockQueryHandler(ILockRepository lockRepository)
         {
             this.lockRepository = lockRepository;
-            this.mapper = mapper;
         }
 
         /// <summary>
@@ -36,9 +34,10 @@ namespace TestCase.Service.Locking.Lock.GetLock
         /// <returns></returns>
         public async Task<GetLockResult> HandleAsync(GetLockQuery query)
         {
-            var @lock = await this.lockRepository.GetLockAsync(query.LockId);
-
-            return this.mapper.Map<TestCase.Model.Locking.Lock, GetLockResult>(@lock);
+            return new GetLockResult
+            {
+                Lock = await this.lockRepository.GetLockAsync(query.LockId)
+            };
         }
     }
 }
