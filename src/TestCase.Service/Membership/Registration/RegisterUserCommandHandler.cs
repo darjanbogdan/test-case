@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,8 +45,15 @@ namespace TestCase.Service.Membership.Registration
             var user = this.mapper.Map<RegisterUserCommand, User>(registerUserCommand);
             user.Id = Guid.NewGuid(); //TODO: Should be replaced with sequential guid
             user.EmailConfirmed = true; //TODO: Should be replaced with activation logic
-        
-            await this.userRepository.RegisterAsync(user, registerUserCommand.Password);
+
+            try
+            {
+                await this.userRepository.RegisterAsync(user, registerUserCommand.Password);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ValidationException(ex.Message); //Should be relocated into validator
+            }
 
             var userRole = await this.roleLookup.GetUserRoleAsync();
 

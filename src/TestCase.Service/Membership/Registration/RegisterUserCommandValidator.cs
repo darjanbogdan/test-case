@@ -30,7 +30,8 @@ namespace TestCase.Service.Membership.Registration
                 .Length(3, 256).WithMessage("Email is out of range.");
 
             RuleFor(model => model.Password)
-                .NotEmpty().WithMessage("Password is required.");
+                .NotEmpty().WithMessage("Password is required.")
+                .Length(6, 100).WithMessage("Password is out of range.");
 
             RuleFor(model => model.ConfirmPassword)
                 .NotEmpty().WithMessage("ConfirmPassword is required.")
@@ -39,6 +40,5 @@ namespace TestCase.Service.Membership.Registration
                     return field == command.Password;
                 }).WithMessage("Confirm password isn't correct.");
         }
-
     }
 }

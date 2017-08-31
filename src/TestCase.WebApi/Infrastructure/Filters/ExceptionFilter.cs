@@ -19,6 +19,11 @@ namespace TestCase.WebApi.Infrastructure.Filters
     {
         public override void OnException(HttpActionExecutedContext context)
         {
+            if (context.Exception is HttpResponseException)
+            {
+                return;
+            }
+
             var statusCode = HttpStatusCode.InternalServerError;
             if (context.Exception is ValidationException)
             {

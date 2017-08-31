@@ -175,7 +175,7 @@ namespace TestCase.WebApi.Controllers
             };
             await this.deleteLockPermissionHandler.HandleAsync(command);
 
-            return Request.CreateResponse(HttpStatusCode.Created);
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         /// <summary>

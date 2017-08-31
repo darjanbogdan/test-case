@@ -47,7 +47,7 @@ namespace TestCase.DataAccess
         /// <returns></returns>
         public Task<IQueryable<TEntity>> FindAsync()
         {
-            return Task.FromResult(this.context.Set<TEntity>().AsQueryable());
+            return Task.FromResult(this.context.Set<TEntity>().AsNoTracking().AsQueryable());
         }
 
         /// <summary>

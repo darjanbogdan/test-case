@@ -100,16 +100,9 @@ namespace TestCase.Repository.Locking
             if (lockPermissionPolicy == null) throw new ArgumentNullException(nameof(lockPermissionPolicy));
 
             var entity = this.mapper.Map<LockPermissionPolicyEntity>(lockPermissionPolicy);
-            try
-            {
-                return this.genericLockPermissionPolicyRepository.InsertAsync(entity);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
 
+            return this.genericLockPermissionPolicyRepository.InsertAsync(entity);
+        }
 
         /// <summary>
         /// Asynchronously finds the lock permission policies.
